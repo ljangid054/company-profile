@@ -1,5 +1,9 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Publishing with a deploy key (second GitHub account)
+
+If `origin` uses a different GitHub account than your default SSH identity, use a repo deploy key and the SSH host alias documented in **[docs/git-deploy-key.md](./docs/git-deploy-key.md)**.
+
 ## Getting Started
 
 First, run the development server:
