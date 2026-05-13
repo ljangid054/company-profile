@@ -8,11 +8,33 @@ Use this when your **default** GitHub account is different from the account that
 ssh-keygen -t ed25519 -C "deploy-key company-profile" -f ~/.ssh/id_ed25519_ljangid_company_profile -N ""
 ```
 
-## 2. Add the **public** key on GitHub
+## 2. Add the **public** key on GitHub (deploy key)
 
-1. Open: `https://github.com/ljangid054/company-profile/settings/keys`
-2. **Add deploy key** → paste contents of `~/.ssh/id_ed25519_ljangid_company_profile.pub`
-3. Enable **Allow write access** if you need `git push` (read-only is enough for CI pull only).
+Deploy keys live on the **repository**, not under your personal SSH settings.
+
+### Copy the public key (macOS)
+
+```bash
+pbcopy < ~/.ssh/id_ed25519_ljangid_company_profile.pub
+```
+
+Or open `~/.ssh/id_ed25519_ljangid_company_profile.pub` in a text editor and copy the **one line** starting with `ssh-ed25519`.  
+**Never** upload the private file (no `.pub` extension) to GitHub.
+
+### In the browser
+
+1. Sign in as a user who has **admin** on the repo (usually `ljangid054`).
+2. Open the repo: [github.com/ljangid054/company-profile](https://github.com/ljangid054/company-profile).
+3. Click **Settings** (top bar of the repo, next to *Insights*). If you do not see **Settings**, you are not an admin on this repo.
+4. Left sidebar: **Security** → **Deploy keys** (or go directly to  
+   `https://github.com/ljangid054/company-profile/settings/keys`).
+5. Click **Add deploy key**.
+6. **Title:** any label (e.g. `Laptop — profice_app`).
+7. **Key:** paste the public key line.
+8. **Allow write access:** enable this if this machine must run **`git push`**; leave off for read-only clone/fetch.
+9. Click **Add key**.
+
+See also: [GitHub — Deploy keys](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/managing-deploy-keys#deploy-keys).
 
 ## 3. SSH config: custom `Host` so this repo does not use your default GitHub key
 
