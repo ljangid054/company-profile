@@ -1,8 +1,8 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Publishing with a deploy key (second GitHub account)
+## Publishing with a personal access token (second GitHub account)
 
-If `origin` uses a different GitHub account than your default SSH identity, use a repo deploy key and the SSH host alias documented in **[docs/git-deploy-key.md](./docs/git-deploy-key.md)**.
+If `origin` is under **`ljangid054`** but your machine defaults to another GitHub login, use HTTPS and a PAT as in **[docs/git-access-token.md](./docs/git-access-token.md)**.
 
 ## Getting Started
 
