@@ -1,0 +1,570 @@
+[
+  {
+    "id": "p1",
+    "category": "heritage-desi",
+    "slug": "nawabi-khas-classic",
+    "name": "Nawabi Khas — Heritage Tall Brass Hookah",
+    "shortDescription": "A tall desi heritage silhouette with hand-hammered collar rings and a bowl tuned for long, steady sessions.",
+    "images": [
+      "/images/p1.png"
+    ],
+    "specifications": [
+      {
+        "label": "Approx. assembled height",
+        "value": "720 mm"
+      },
+      {
+        "label": "Brass body & stem",
+        "value": "Solid brass construction — handcrafted joins"
+      },
+      {
+        "label": "Tray style",
+        "value": "Wide embossed charcoal tray"
+      },
+      {
+        "label": "Hose port & purge",
+        "value": "Traditional purge ring — smooth leather hose pairing"
+      }
+    ],
+    "material": "Premium brass body with handcrafted fittings and Somada finishing discipline.",
+    "finishes": [
+      "Heritage satin brass",
+      "Dark antique patina",
+      "Mirror collar accents"
+    ],
+    "sizes": [
+      "Standard Nawabi height",
+      "Custom height ±40 mm on bespoke orders"
+    ],
+    "features": [
+      "Hand-polished collar transitions",
+      "Bench-balanced stem weight",
+      "Draw tuned for traditional blonde leaf blends"
+    ],
+    "applications": [
+      "Home rituals",
+      "Premium lounges",
+      "Collector gifting"
+    ],
+    "featured": true
+  },
+  {
+    "id": "p2",
+    "category": "heritage-desi",
+    "slug": "haveli-double-apple",
+    "name": "Haveli Double-Apple Brass Hookah",
+    "shortDescription": "Romantic haveli proportions with a wider footprint bowl—crafted for shared sessions and dramatic tabletop presence.",
+    "images": [
+      "/images/all_product.png"
+    ],
+    "specifications": [
+      {
+        "label": "Approx. assembled height",
+        "value": "680 mm"
+      },
+      {
+        "label": "Bowl chamber",
+        "value": "Deep brass bowl — hand-lapped lip"
+      },
+      {
+        "label": "Base stance",
+        "value": "Wide footprint for lounge stability"
+      },
+      {
+        "label": "Craft notes",
+        "value": "Each stem matched to bowl by Somada bench pairs"
+      }
+    ],
+    "material": "Heavy brass bowl and stem stock — no hollow-feel shortcuts.",
+    "finishes": [
+      "Warm antique recess",
+      "Natural satin body"
+    ],
+    "sizes": [
+      "Single variant — bespoke engraving optional"
+    ],
+    "features": [
+      "Stable tray heat footprint",
+      "Designed for fruit-forward profiles",
+      "Export-ready packing available"
+    ],
+    "applications": [
+      "Lounges",
+      "Destination weddings",
+      "Collector shelves"
+    ],
+    "featured": false
+  },
+  {
+    "id": "p3",
+    "category": "premium-handcrafted",
+    "slug": "somada-classic-heritage",
+    "name": "Somada Classic Heritage Hookah",
+    "shortDescription": "Our flagship handcrafted brass hookah—signature Somada silhouette with heirloom-grade finishing.",
+    "images": [
+      "/images/all_product2.png"
+    ],
+    "specifications": [
+      {
+        "label": "Approx. assembled height",
+        "value": "700 mm (configurable ±30 mm)"
+      },
+      {
+        "label": "Finish standard",
+        "value": "Heritage satin + hand-polished brass highlights"
+      },
+      {
+        "label": "Assembly",
+        "value": "Bench-assembled at Somada workshop, Somda — Somada QC card"
+      },
+      {
+        "label": "Tray & stem harmony",
+        "value": "Matched brass tones across tray ring & collar"
+      }
+    ],
+    "material": "Premium brass body with stainless accents only where specified.",
+    "finishes": [
+      "Heritage satin",
+      "Deep antique",
+      "Mirror collar accents"
+    ],
+    "sizes": [
+      "Classic single-chamber",
+      "Twin-port custom on request"
+    ],
+    "features": [
+      "Signature Somada airflow tuning",
+      "Engraving slots for lounge branding",
+      "Story card with artisan bench notes"
+    ],
+    "applications": [
+      "Flagship lounges",
+      "Collectors",
+      "Premium gifting"
+    ],
+    "featured": true
+  },
+  {
+    "id": "p4",
+    "category": "premium-handcrafted",
+    "slug": "aurum-kundan-evening",
+    "name": "Aurum Kundan Evening Line",
+    "shortDescription": "Evening-forward proportions with jewel-tone collar polish—crafted for lounge lighting that loves brass reflections.",
+    "images": [
+      "/images/all_product.png"
+    ],
+    "specifications": [
+      {
+        "label": "Approx. assembled height",
+        "value": "660 mm"
+      },
+      {
+        "label": "Collar detail",
+        "value": "Hand-worked decorative collar bands"
+      },
+      {
+        "label": "Tray",
+        "value": "Radial brushed tray — heat-stable footprint"
+      },
+      {
+        "label": "Draw character",
+        "value": "Open, relaxed pull tuned with Somada hose pairing"
+      }
+    ],
+    "material": "Solid brass with layered finishing passes — never spray-only shortcuts.",
+    "finishes": [
+      "Mirror collar + satin body",
+      "Soft champagne brass"
+    ],
+    "sizes": [
+      "Standard Aurum profile"
+    ],
+    "features": [
+      "Optimized for mood-lit lounge environments",
+      "Pairs with Somada leather hose upgrades",
+      "Photogenic silhouette for hospitality shoots"
+    ],
+    "applications": [
+      "Premium lounges",
+      "Hotel terraces",
+      "Retail displays"
+    ],
+    "featured": true
+  },
+  {
+    "id": "p5",
+    "category": "custom-bespoke",
+    "slug": "monogram-wedding-pair",
+    "name": "Monogram Wedding Pair — Bespoke Brass Hookahs",
+    "shortDescription": "Matched pair programs for weddings—initials, dates, or family crests chased into brass by Somada artisans.",
+    "images": [
+      "/images/all_product2.png"
+    ],
+    "specifications": [
+      {
+        "label": "Minimum pair",
+        "value": "Two matched hookahs — mirrored or complementary finishes"
+      },
+      {
+        "label": "Artwork",
+        "value": "Vector crest / initials — Somada chases by hand"
+      },
+      {
+        "label": "Timeline",
+        "value": "Typically 4–8 weeks after artwork approval"
+      },
+      {
+        "label": "Finish coordination",
+        "value": "Palette matched to invitation metallics where possible"
+      }
+    ],
+    "material": "Heavy brass blanks chosen for engraving depth and structural integrity.",
+    "finishes": [
+      "Antique recess engraving",
+      "Bright relief highlights"
+    ],
+    "sizes": [
+      "Classic height pair",
+      "Compact companion pair option"
+    ],
+    "features": [
+      "Dedicated craft liaison",
+      "Protective travel crates optional",
+      "Perfect for destination weddings"
+    ],
+    "applications": [
+      "Weddings",
+      "Anniversary gifting",
+      "Family heirlooms"
+    ],
+    "featured": true
+  },
+  {
+    "id": "p6",
+    "category": "custom-bespoke",
+    "slug": "naam-heirloom-order",
+    "name": "Naam Engraved Heirloom Order",
+    "shortDescription": "Single heirloom commission—family naam or devotional motif engraved into a bespoke Somada brass hookah.",
+    "images": [
+      "/images/all_product.png"
+    ],
+    "specifications": [
+      {
+        "label": "Craft intake",
+        "value": "Video consult + reference imagery welcome"
+      },
+      {
+        "label": "Base & stem options",
+        "value": "Choice of Somada heritage profiles"
+      },
+      {
+        "label": "Engraving depth",
+        "value": "Relief or recessed — artisan-led feasibility review"
+      },
+      {
+        "label": "Documentation",
+        "value": "Photo lineage card & bench signature tag"
+      }
+    ],
+    "material": "Selected brass blanks with artisan-approved thickness for engraving.",
+    "finishes": [
+      "Dark antique recess",
+      "Warm satin relief"
+    ],
+    "sizes": [
+      "Profile matched to display space"
+    ],
+    "features": [
+      "One-off storytelling piece",
+      "Studio photography session add-on available",
+      "Shipped with ritual-safe packing"
+    ],
+    "applications": [
+      "Family milestones",
+      "Spiritual gifting",
+      "Collector commissions"
+    ],
+    "featured": false
+  },
+  {
+    "id": "p7",
+    "category": "lounge-series",
+    "slug": "maharaja-black-label",
+    "name": "Maharaja Black Label — Lounge Edition Hookah",
+    "shortDescription": "Night-shift lounge durability—balanced brass weighting and tray geometry tuned for busy service floors.",
+    "images": [
+      "/images/all_product2.png"
+    ],
+    "specifications": [
+      {
+        "label": "Approx. assembled height",
+        "value": "690 mm"
+      },
+      {
+        "label": "Service rhythm",
+        "value": "Stable tray for frequent charcoal cycles"
+      },
+      {
+        "label": "Finish durability",
+        "value": "Protective lacquer optional for humid climates"
+      },
+      {
+        "label": "Spares discipline",
+        "value": "Matching spare trays / hoses quoted as kits"
+      }
+    ],
+    "material": "Heavy brass construction — weighted feel customers associate with premium lounges.",
+    "finishes": [
+      "Black-label satin + collar polish",
+      "Smoke antique"
+    ],
+    "sizes": [
+      "Standard lounge batch sizing"
+    ],
+    "features": [
+      "Designed for rotation-heavy programs",
+      "Export carton sizing standardized",
+      "Staff-friendly purge ergonomics"
+    ],
+    "applications": [
+      "Hookah lounges",
+      "Hotel cigar terraces",
+      "VIP sections"
+    ],
+    "featured": true
+  },
+  {
+    "id": "p8",
+    "category": "lounge-series",
+    "slug": "hospitality-export-suite",
+    "name": "Hospitality Export Suite Hookah",
+    "shortDescription": "Repeatable handcrafted brass hookahs for hospitality buyers—consistent finishes across crates without losing hand character.",
+    "images": [
+      "/images/all_product.png"
+    ],
+    "specifications": [
+      {
+        "label": "Batch mindset",
+        "value": "Lot-wise finishing alignment — artisan supervised"
+      },
+      {
+        "label": "Packing",
+        "value": "Double-wall export cartons + tray separators"
+      },
+      {
+        "label": "Documentation",
+        "value": "Finish reference chips available per batch"
+      },
+      {
+        "label": "Lead times",
+        "value": "Quoted per destination & volume"
+      }
+    ],
+    "material": "Somada brass standards — consistent alloy batch notes per production wave.",
+    "finishes": [
+      "Heritage satin export finish",
+      "Mirror collar lounge shine"
+    ],
+    "sizes": [
+      "Standard hospitality height"
+    ],
+    "features": [
+      "Designed for distributor partners",
+      "Training sheet for floor staff maintenance",
+      "Optional branded leather hoses"
+    ],
+    "applications": [
+      "International distributors",
+      "Hotel suppliers",
+      "Franchise lounges"
+    ],
+    "featured": false
+  },
+  {
+    "id": "p9",
+    "category": "compact-artisan",
+    "slug": "pocket-regal-compact",
+    "name": "Pocket Regal — Compact Brass Hookah",
+    "shortDescription": "Compact footprint with full brass integrity—handcrafted for intimate gatherings and premium gifting counters.",
+    "images": [
+      "/images/all_product2.png"
+    ],
+    "specifications": [
+      {
+        "label": "Approx. assembled height",
+        "value": "520 mm"
+      },
+      {
+        "label": "Footprint",
+        "value": "Compact base plate — stable on café tables"
+      },
+      {
+        "label": "Bowl",
+        "value": "Scaled brass bowl — same craft discipline as tall lines"
+      },
+      {
+        "label": "Travel",
+        "value": "Optional padded carry case program"
+      }
+    ],
+    "material": "Solid brass — no aluminum cores posing as brass.",
+    "finishes": [
+      "Soft satin",
+      "Micro-antique"
+    ],
+    "sizes": [
+      "Single compact profile"
+    ],
+    "features": [
+      "Designed for shorter sessions & gifting",
+      "Pairs with Somada mini trays",
+      "Easy tabletop photography"
+    ],
+    "applications": [
+      "Premium gifting",
+      "Home collectors",
+      "Boutique retail"
+    ],
+    "featured": false
+  },
+  {
+    "id": "p10",
+    "category": "compact-artisan",
+    "slug": "chaihouse-mini-artisan",
+    "name": "Chaihouse Mini Artisan Hookah",
+    "shortDescription": "Mini silhouette inspired by roadside chaihouse camaraderie—crafted as collectible brass, not disposable kits.",
+    "images": [
+      "/images/all_product.png"
+    ],
+    "specifications": [
+      {
+        "label": "Approx. assembled height",
+        "value": "480 mm"
+      },
+      {
+        "label": "Intent",
+        "value": "Slow chai tempo sessions — relaxed draw tuning"
+      },
+      {
+        "label": "Finish detail",
+        "value": "Hand-burnished stem rings"
+      },
+      {
+        "label": "Story packaging",
+        "value": "Ships with Somada story booklet"
+      }
+    ],
+    "material": "Brass throughout — handcrafted joins.",
+    "finishes": [
+      "Warm antique",
+      "Natural satin"
+    ],
+    "sizes": [
+      "Mini artisan single SKU"
+    ],
+    "features": [
+      "Conversation-piece proportions",
+      "Ideal Diwali / Eid gifting upsell",
+      "Desk-friendly display footprint"
+    ],
+    "applications": [
+      "Collectors",
+      "Design-forward gifting",
+      "Studio shelves"
+    ],
+    "featured": false
+  },
+  {
+    "id": "p11",
+    "category": "limited-editions",
+    "slug": "diwali-artisan-drop",
+    "name": "Diwali Artisan Drop — Numbered Brass Hookah",
+    "shortDescription": "Annual numbered brass hookah celebrating Somada lamp-making motifs—limited shells with foil-lined crates.",
+    "images": [
+      "/images/all_product2.png"
+    ],
+    "specifications": [
+      {
+        "label": "Edition size",
+        "value": "Numbered release — varies yearly"
+      },
+      {
+        "label": "Motifs",
+        "value": "Diwali lamp-inspired collar chasing"
+      },
+      {
+        "label": "Certificate",
+        "value": "Hand-signed Somada provenance card"
+      },
+      {
+        "label": "Reservation",
+        "value": "Waitlist opens each monsoon season"
+      }
+    ],
+    "material": "Brass with layered chasing — artisan hours concentrated in collar storytelling.",
+    "finishes": [
+      "Festive antique gold tone",
+      "Mirror rim highlights"
+    ],
+    "sizes": [
+      "Standard collector height"
+    ],
+    "features": [
+      "Photogenic holiday centerpiece",
+      "Pairs with Somada accessory bundles",
+      "Story-led marketing assets supplied to partners"
+    ],
+    "applications": [
+      "Collectors",
+      "Limited retail drops",
+      "Gifting houses"
+    ],
+    "featured": true
+  },
+  {
+    "id": "p12",
+    "category": "limited-editions",
+    "slug": "studio-collab-no1",
+    "name": "Somada × Studio Collab No. 01",
+    "shortDescription": "Collaborative brass hookah designed with independent studio metalwork artists—experimental silhouette, Somada airflow discipline.",
+    "images": [
+      "/images/all_product.png"
+    ],
+    "specifications": [
+      {
+        "label": "Production model",
+        "value": "Micro-batch — artisan pairs rotate per drop"
+      },
+      {
+        "label": "Story",
+        "value": "Certificate outlining collaborative bench credits"
+      },
+      {
+        "label": "Availability",
+        "value": "Announced via Somada newsletter + Instagram"
+      },
+      {
+        "label": "Finish experiments",
+        "value": "Patina recipes unique to each drop"
+      }
+    ],
+    "material": "Studio-selected brass alloy conversation — documented before casting/chasing.",
+    "finishes": [
+      "Experimental patinas — varies per drop"
+    ],
+    "sizes": [
+      "Unique per collaboration"
+    ],
+    "features": [
+      "Collector-focused storytelling",
+      "Gallery-friendly silhouettes",
+      "Supports independent artisan studios"
+    ],
+    "applications": [
+      "Design collectors",
+      "Gallery retail",
+      "Brand collaborations"
+    ],
+    "featured": true
+  }
+]
