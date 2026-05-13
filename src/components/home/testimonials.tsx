@@ -11,7 +11,7 @@ export function TestimonialsSection() {
   return (
     <Section coverBackground coverScrim="section" className="border-t border-border/60">
       <Container>
-        <FadeIn>
+        <FadeIn variant="blur">
           <Heading
             eyebrow="Proof"
             align="center"
@@ -24,7 +24,7 @@ export function TestimonialsSection() {
         <div className="mt-14 grid gap-8 lg:grid-cols-3">
           {testimonials.map((t, idx) => (
             <FadeIn key={t.name} delay={idx * 0.08}>
-              <blockquote className="flex h-full flex-col rounded-2xl border border-border/70 bg-background/50 p-8">
+              <blockquote className="glass-panel flex h-full flex-col rounded-3xl p-8">
                 <Quote className="size-8 text-primary/80" aria-hidden />
                 <p className="mt-6 flex-1 text-sm leading-relaxed text-muted-foreground">
                   “{t.quote}”

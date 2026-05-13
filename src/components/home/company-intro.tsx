@@ -12,7 +12,7 @@ export function CompanyIntroSection() {
   return (
     <Section coverBackground coverScrim="section">
       <Container>
-        <FadeIn>
+        <FadeIn variant="blur">
           <Heading
             eyebrow="Company"
             as="h2"
@@ -23,8 +23,8 @@ export function CompanyIntroSection() {
 
         <div className="mt-14 grid gap-6 md:grid-cols-2">
           {capabilities.map((cap, idx) => (
-            <FadeIn key={cap.title} delay={idx * 0.06}>
-              <Card className="h-full border-border/70 bg-card/50 backdrop-blur-sm">
+            <FadeIn key={cap.title} delay={idx * 0.06} variant="scale">
+              <Card className="h-full border-primary/15 bg-card/60">
                 <CardHeader>
                   <CardTitle className="font-heading text-xl">{cap.title}</CardTitle>
                 </CardHeader>

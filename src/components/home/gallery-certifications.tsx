@@ -11,7 +11,7 @@ export function GalleryCertificationsSection() {
   return (
     <Section coverBackground coverScrim="section">
       <Container>
-        <FadeIn>
+        <FadeIn variant="blur">
           <Heading
             eyebrow="Workshop"
             as="h2"
@@ -23,7 +23,7 @@ export function GalleryCertificationsSection() {
         <div className="mt-12 grid gap-6 md:grid-cols-2">
           {galleryImages.map((img, idx) => (
             <FadeIn key={img.src} delay={idx * 0.06}>
-              <figure className="group overflow-hidden rounded-2xl border border-border/70 bg-muted/20">
+              <figure className="glass-panel group overflow-hidden rounded-3xl">
                 <div className="relative aspect-[16/10] w-full bg-gradient-to-b from-muted/30 to-muted/60">
                   <Image
                     src={img.src}
@@ -45,7 +45,7 @@ export function GalleryCertificationsSection() {
         <div className="mt-16 grid gap-6 lg:grid-cols-3">
           {certifications.map((c, idx) => (
             <FadeIn key={c.name} delay={idx * 0.07}>
-              <div className="h-full rounded-2xl border border-border/70 bg-card/40 p-6">
+              <div className="glass-panel h-full rounded-3xl p-6">
                 <p className="font-heading text-lg text-foreground">{c.name}</p>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
                   {c.detail}

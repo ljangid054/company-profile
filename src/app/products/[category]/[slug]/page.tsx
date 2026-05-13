@@ -15,6 +15,7 @@ import { Badge } from "@/components/ui/badge";
 import { ProductGallery } from "@/components/products/product-gallery";
 import { ProductSpecsTable } from "@/components/products/product-specs-table";
 import { ProductInquiryBar } from "@/components/products/product-inquiry-bar";
+import { FadeIn } from "@/components/motion/fade-in";
 import type { CategorySlug } from "@/types/product";
 
 type Props = {
@@ -77,8 +78,11 @@ export default async function ProductDetailPage({ params }: Props) {
         </nav>
 
         <div className="mt-10 grid gap-12 lg:grid-cols-2 lg:items-start">
-          <ProductGallery images={product.images} productName={product.name} />
-          <div>
+          <FadeIn variant="scale">
+            <ProductGallery images={product.images} productName={product.name} />
+          </FadeIn>
+          <FadeIn variant="blur" delay={0.08}>
+            <div>
             <div className="flex flex-wrap gap-2">
               <Badge variant="secondary">{cat?.title}</Badge>
               {product.featured ? <Badge>Featured program</Badge> : null}
@@ -158,12 +162,13 @@ export default async function ProductDetailPage({ params }: Props) {
                 </ul>
               </div>
             </div>
-          </div>
+            </div>
+          </FadeIn>
         </div>
 
-        <div className="mt-16">
+        <FadeIn variant="up" delay={0.1} className="mt-16">
           <ProductInquiryBar product={product} />
-        </div>
+        </FadeIn>
       </Container>
     </Section>
   );

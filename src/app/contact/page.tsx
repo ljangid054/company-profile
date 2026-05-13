@@ -11,6 +11,7 @@ import { Separator } from "@/components/ui/separator";
 import { ContactForm } from "@/components/contact/contact-form";
 import { whatsappHref } from "@/lib/whatsapp";
 import { BrandLogo } from "@/components/ui/brand-logo";
+import { FadeIn } from "@/components/motion/fade-in";
 
 export const metadata: Metadata = {
   title: "Contact Somada Hookah — quotes, export, custom brass programs",
@@ -65,15 +66,18 @@ export default function ContactPage() {
       />
     <Section coverBackground coverScrim="section" className="pt-12 sm:pt-16">
       <Container>
-        <Heading
-          eyebrow="Contact"
-          as="h1"
-          title="Talk with the Somada workshop desk"
-          description="Fastest responses arrive with clear quantities, destination country, and target finishes. We reply with pragmatic MOQs, timelines, and packing notes."
-        />
+        <FadeIn variant="blur">
+          <Heading
+            eyebrow="Contact"
+            as="h1"
+            title="Talk with the Somada workshop desk"
+            description="Fastest responses arrive with clear quantities, destination country, and target finishes. We reply with pragmatic MOQs, timelines, and packing notes."
+          />
+        </FadeIn>
 
         <div className="mt-12 grid gap-10 lg:grid-cols-2 lg:items-start">
-          <div id="quote" className="scroll-mt-28 space-y-8">
+          <FadeIn variant="scale">
+            <div id="quote" className="scroll-mt-28 space-y-8">
             <div>
               <BrandLogo className="mb-5 h-10 w-36" />
               <h2 className="font-heading text-2xl text-foreground">
@@ -91,7 +95,9 @@ export default function ContactPage() {
               <ContactForm />
             </Suspense>
           </div>
+          </FadeIn>
 
+          <FadeIn variant="blur" delay={0.08}>
           <div className="space-y-8">
             <div className="rounded-2xl border border-border/70 bg-card/40 p-6">
               <h2 className="font-heading text-xl text-foreground">Workshop & owner</h2>
@@ -210,6 +216,7 @@ export default function ContactPage() {
               </div>
             </div>
           </div>
+          </FadeIn>
         </div>
       </Container>
     </Section>

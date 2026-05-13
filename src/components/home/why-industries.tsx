@@ -21,7 +21,7 @@ export function WhyChooseSection() {
     <Section coverBackground coverScrim="section" className="border-y border-border/60">
       <Container className="grid gap-12 lg:grid-cols-2 lg:items-start">
         <div>
-          <FadeIn>
+          <FadeIn variant="blur">
             <Heading
               eyebrow="Why Somada"
               as="h2"
@@ -41,8 +41,8 @@ export function WhyChooseSection() {
           </ul>
         </div>
 
-        <FadeIn delay={0.1}>
-          <div className="rounded-2xl border border-border/70 bg-background/50 p-8">
+        <FadeIn delay={0.1} variant="scale">
+          <div className="glass-panel rounded-3xl p-8">
             <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary">
               Industries served
             </p>

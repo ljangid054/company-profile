@@ -40,7 +40,7 @@ export function CoverBackdrop({
         fill
         priority={priority}
         quality={85}
-        className="object-cover"
+        className="animate-ken-burns-slow object-cover motion-reduce:animate-none"
         sizes="100vw"
         aria-hidden
       />

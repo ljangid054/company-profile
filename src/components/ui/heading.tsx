@@ -26,7 +26,7 @@ export function Heading({
       )}
     >
       {eyebrow ? (
-        <p className="mb-3 text-xs font-semibold uppercase tracking-[0.22em] text-primary">
+        <p className="mb-4 inline-flex items-center rounded-full border border-primary/25 bg-primary/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-primary shadow-sm shadow-primary/10">
           {eyebrow}
         </p>
       ) : null}

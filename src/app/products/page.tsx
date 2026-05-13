@@ -9,6 +9,7 @@ import { Section } from "@/components/ui/section";
 import { Heading } from "@/components/ui/heading";
 import { ProductsCatalog } from "@/components/products/products-catalog";
 import { Button } from "@/components/ui/button";
+import { FadeIn } from "@/components/motion/fade-in";
 import { LINEUP_IMAGE_PRIMARY, LINEUP_IMAGE_SECONDARY } from "@/config/visual";
 
 export const metadata: Metadata = {
@@ -30,14 +31,16 @@ export default function ProductsPage() {
   return (
     <Section coverBackground coverScrim="section" className="pt-12 sm:pt-16">
       <Container>
-        <Heading
-          eyebrow="Catalog"
-          as="h1"
-          title="Handcrafted brass—built for hospitality reality"
-          description="Explore six handcrafted hookah lines—from heritage desi silhouettes and bespoke wedding pairs to lounge rotations and numbered collector drops. Every hookah is quoted bench-to-bench."
-        />
+        <FadeIn variant="blur">
+          <Heading
+            eyebrow="Catalog"
+            as="h1"
+            title="Handcrafted brass—built for hospitality reality"
+            description="Explore six handcrafted hookah lines—from heritage desi silhouettes and bespoke wedding pairs to lounge rotations and numbered collector drops. Every hookah is quoted bench-to-bench."
+          />
+        </FadeIn>
 
-        <div className="mt-10 grid gap-4 lg:grid-cols-2">
+        <FadeIn variant="scale" delay={0.06} className="mt-10 grid gap-4 lg:grid-cols-2">
           <div className="relative aspect-[16/11] overflow-hidden rounded-2xl border border-border/70 bg-muted/25">
             <Image
               src={LINEUP_IMAGE_PRIMARY}
@@ -58,9 +61,10 @@ export default function ProductsPage() {
               loading="lazy"
             />
           </div>
-        </div>
+        </FadeIn>
 
-        <div className="mt-10 grid gap-4 rounded-2xl border border-border/70 bg-card/40 p-6 md:grid-cols-3">
+        <FadeIn variant="up" delay={0.1} className="mt-10">
+        <div className="grid gap-4 rounded-2xl border border-white/10 bg-card/50 p-6 shadow-lg shadow-black/20 backdrop-blur-md md:grid-cols-3">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">
               Categories
@@ -89,12 +93,14 @@ export default function ProductsPage() {
             </div>
           </div>
         </div>
+        </FadeIn>
 
-        <div className="mt-14">
+        <FadeIn variant="blur" delay={0.08} className="mt-14">
           <ProductsCatalog products={products} />
-        </div>
+        </FadeIn>
 
-        <div className="mt-16 rounded-2xl border border-dashed border-border/70 bg-muted/10 p-8 text-sm text-muted-foreground">
+        <FadeIn variant="scale" className="mt-16">
+        <div className="rounded-2xl border border-dashed border-white/15 bg-muted/15 p-8 text-sm text-muted-foreground backdrop-blur-sm">
           <p>
             All listings are representative of Somada workshop capabilities. Specifications may vary slightly between artisan batches—final certificates provided at quotation stage for wholesale programs.
           </p>
@@ -106,6 +112,7 @@ export default function ProductsPage() {
             .
           </p>
         </div>
+        </FadeIn>
       </Container>
     </Section>
   );
