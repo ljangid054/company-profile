@@ -1,0 +1,2 @@
+id,category,slug,name,short_description,images,material,finishes,sizes,features,applications,specifications,featured,price
+p-example,heritage-desi,example-slug,Example product,Short description for listing.,https://example.com/a.jpg|https://example.com/b.jpg,Solid brass,"Satin brass|Antique",Standard,"Hand polished|Bench balanced",Home|Lounges,"[{""label"":""Height"",""value"":""720 mm""}]",false,"₹0"

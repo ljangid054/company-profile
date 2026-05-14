@@ -1,11 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import {
-  getAllProducts,
-  getProduct,
-  isCategorySlug,
-} from "@/lib/products";
+import { getAllProducts, isCategorySlug } from "@/lib/products";
+import { getProductMerged } from "@/lib/products-merged";
 import { getCategoryBySlug } from "@/lib/categories";
 import { siteConfig } from "@/config/site";
 import { Container } from "@/components/ui/container";
@@ -17,6 +14,10 @@ import { ProductSpecsTable } from "@/components/products/product-specs-table";
 import { ProductInquiryBar } from "@/components/products/product-inquiry-bar";
 import { FadeIn } from "@/components/motion/fade-in";
 import type { CategorySlug } from "@/types/product";
+import { toAbsoluteUrl } from "@/lib/absolute-url";
+
+export const revalidate = 60;
+export const dynamicParams = true;
 
 type Props = {
   params: Promise<{ category: string; slug: string }>;
@@ -32,7 +33,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { category, slug } = await params;
   if (!isCategorySlug(category)) return { title: "Product" };
-  const product = getProduct(category as CategorySlug, slug);
+  const product = await getProductMerged(category as CategorySlug, slug);
   if (!product) return { title: "Product" };
 
   return {
@@ -43,7 +44,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: product.shortDescription,
       url: `/products/${category}/${slug}`,
       images: product.images[0]
-        ? [{ url: product.images[0], alt: product.name }]
+        ? [{ url: toAbsoluteUrl(product.images[0]), alt: product.name }]
         : undefined,
     },
   };
@@ -55,7 +56,7 @@ export default async function ProductDetailPage({ params }: Props) {
     notFound();
   }
 
-  const product = getProduct(category as CategorySlug, slug);
+  const product = await getProductMerged(category as CategorySlug, slug);
   if (!product) {
     notFound();
   }
@@ -93,6 +94,9 @@ export default async function ProductDetailPage({ params }: Props) {
             <p className="mt-5 text-base leading-relaxed text-muted-foreground sm:text-lg">
               {product.shortDescription}
             </p>
+            {product.price ? (
+              <p className="mt-3 text-lg font-semibold text-primary">{product.price}</p>
+            ) : null}
 
             <Separator className="my-8 bg-border/70" />
 

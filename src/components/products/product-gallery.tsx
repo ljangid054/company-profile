@@ -1,7 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import { useState } from "react";
+import { CatalogImage } from "@/components/products/catalog-image";
 import { Maximize2 } from "lucide-react";
 import {
   Dialog,
@@ -26,7 +26,7 @@ export function ProductGallery({ images, productName }: Props) {
   return (
     <div className="space-y-4">
       <div className="relative aspect-[3/4] w-full overflow-hidden rounded-2xl border border-border/70 bg-gradient-to-b from-muted/40 to-muted/15">
-        <Image
+        <CatalogImage
           src={current}
           alt={`${productName} — primary visual`}
           fill
@@ -62,7 +62,7 @@ export function ProductGallery({ images, productName }: Props) {
                   : "border-border/60 hover:border-primary/40",
               )}
             >
-              <Image
+              <CatalogImage
                 src={src}
                 alt={`${productName} thumbnail ${idx + 1}`}
                 fill
@@ -79,7 +79,7 @@ export function ProductGallery({ images, productName }: Props) {
         <DialogContent className="max-w-5xl border-border/70 bg-background p-3 sm:p-5">
           <DialogTitle className="sr-only">{productName} — enlarged image</DialogTitle>
           <div className="relative aspect-[16/10] w-full overflow-hidden rounded-lg bg-muted/30">
-            <Image
+            <CatalogImage
               src={current}
               alt={`${productName} enlarged`}
               fill

@@ -6,7 +6,7 @@ import { WhyChooseSection } from "@/components/home/why-industries";
 import { GalleryCertificationsSection } from "@/components/home/gallery-certifications";
 import { TestimonialsSection } from "@/components/home/testimonials";
 import { FinalCtaSection } from "@/components/home/final-cta";
-import { getFeaturedProducts } from "@/lib/products";
+import { getFeaturedProductsMerged } from "@/lib/products-merged";
 import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
@@ -19,8 +19,10 @@ export const metadata: Metadata = {
   },
 };
 
-export default function HomePage() {
-  const featured = getFeaturedProducts();
+export const revalidate = 60;
+
+export default async function HomePage() {
+  const featured = await getFeaturedProductsMerged();
 
   return (
     <>

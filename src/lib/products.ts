@@ -31,6 +31,7 @@ export function searchProducts(query: string): Product[] {
       p.name,
       p.shortDescription,
       p.material,
+      p.price ?? "",
       ...p.features,
       ...p.applications,
     ]

@@ -23,6 +23,8 @@ export type Product = {
   features: string[];
   applications: string[];
   featured?: boolean;
+  /** Optional list price or range, e.g. "₹12,500" — from sheet or JSON */
+  price?: string;
 };
 
 export type CategoryInfo = {

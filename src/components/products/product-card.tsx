@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
+import { CatalogImage } from "@/components/products/catalog-image";
 import type { Product } from "@/types/product";
 import {
   Card,
@@ -30,7 +30,7 @@ export function ProductCard({ product }: { product: Product }) {
       <Card className="group h-full overflow-hidden border-primary/15 bg-card/70 transition-shadow duration-500 hover:border-primary/40 hover:shadow-xl hover:shadow-primary/10">
         <Link href={href} className="block focus-visible:outline-none">
           <div className="relative aspect-[3/4] w-full overflow-hidden bg-gradient-to-b from-muted/50 to-muted/10">
-            <Image
+            <CatalogImage
               src={cover}
               alt={product.name}
               fill
@@ -55,6 +55,9 @@ export function ProductCard({ product }: { product: Product }) {
             <CardDescription className="text-sm leading-relaxed">
               {product.shortDescription}
             </CardDescription>
+            {product.price ? (
+              <p className="text-sm font-semibold text-primary">{product.price}</p>
+            ) : null}
           </CardHeader>
         </Link>
         <CardContent className="flex flex-wrap gap-2 pt-0">

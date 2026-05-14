@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getProductsByCategory, getCategorySlugs, isCategorySlug } from "@/lib/products";
+import { getCategorySlugs, isCategorySlug } from "@/lib/products";
+import { getProductsByCategoryMerged } from "@/lib/products-merged";
 import { getCategoryBySlug } from "@/lib/categories";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
@@ -13,6 +14,8 @@ import type { CategorySlug } from "@/types/product";
 type Props = {
   params: Promise<{ category: string }>;
 };
+
+export const revalidate = 60;
 
 export async function generateStaticParams() {
   return getCategorySlugs().map((category) => ({ category }));
@@ -42,7 +45,7 @@ export default async function CategoryPage({ params }: Props) {
   }
 
   const info = getCategoryBySlug(category);
-  const items = getProductsByCategory(category as CategorySlug);
+  const items = await getProductsByCategoryMerged(category as CategorySlug);
 
   if (!info) {
     notFound();

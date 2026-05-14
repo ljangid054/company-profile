@@ -30,6 +30,7 @@ export function ProductsCatalog({ products }: Props) {
         p.name,
         p.shortDescription,
         p.material,
+        p.price ?? "",
         ...p.features,
         ...p.applications,
       ]

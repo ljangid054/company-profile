@@ -2,12 +2,13 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { siteConfig } from "@/config/site";
-import { getAllProducts } from "@/lib/products";
+import { getAllProductsMerged } from "@/lib/products-merged";
 import { getAllCategories } from "@/lib/categories";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
 import { Heading } from "@/components/ui/heading";
 import { ProductsCatalog } from "@/components/products/products-catalog";
+import { ProductsCatalogFromApi } from "@/components/products/products-catalog-from-api";
 import { Button } from "@/components/ui/button";
 import { FadeIn } from "@/components/motion/fade-in";
 import { LINEUP_IMAGE_PRIMARY, LINEUP_IMAGE_SECONDARY } from "@/config/visual";
@@ -24,8 +25,11 @@ export const metadata: Metadata = {
   },
 };
 
-export default function ProductsPage() {
-  const products = getAllProducts();
+export const revalidate = 60;
+
+export default async function ProductsPage() {
+  const clientFetch = process.env.NEXT_PUBLIC_FETCH_PRODUCTS_FROM_API === "1";
+  const products = clientFetch ? null : await getAllProductsMerged();
   const cats = getAllCategories();
 
   return (
@@ -96,7 +100,11 @@ export default function ProductsPage() {
         </FadeIn>
 
         <FadeIn variant="blur" delay={0.08} className="mt-14">
-          <ProductsCatalog products={products} />
+          {clientFetch ? (
+            <ProductsCatalogFromApi />
+          ) : (
+            <ProductsCatalog products={products!} />
+          )}
         </FadeIn>
 
         <FadeIn variant="scale" className="mt-16">

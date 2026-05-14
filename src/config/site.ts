@@ -8,7 +8,7 @@ export const siteConfig = {
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://somadahookah.com",
   locale: "en_IN",
   contact: {
-    email: "hello@somadahookah.com",
+    email: "smdmahendra@gmail.com",
     whatsappE164: "919571620501",
     phoneDisplay: "+91 95716 20501",
     phoneTel: "+919571620501",

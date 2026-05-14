@@ -1,12 +1,15 @@
 import type { MetadataRoute } from "next";
 import { siteConfig } from "@/config/site";
-import { getAllProducts, getCategorySlugs } from "@/lib/products";
+import { getAllProductsMerged } from "@/lib/products-merged";
+import { getCategorySlugs } from "@/lib/products";
 
-export const dynamic = "force-static";
+export const revalidate = 3600;
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = siteConfig.url.replace(/\/$/, "");
   const ts = new Date();
+
+  const products = await getAllProductsMerged();
 
   const routes: MetadataRoute.Sitemap = [
     { url: `${base}/`, lastModified: ts, changeFrequency: "weekly", priority: 1 },
@@ -39,7 +42,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     });
   }
 
-  for (const product of getAllProducts()) {
+  for (const product of products) {
     routes.push({
       url: `${base}/products/${product.category}/${product.slug}`,
       lastModified: ts,
