@@ -1,12 +1,7 @@
 import { z } from "zod";
-import { CATEGORY_SLUGS, type CategorySlug } from "@/types/product";
 import type { Product } from "@/types/product";
 
-const categoryZ = z
-  .string()
-  .refine((s): s is CategorySlug =>
-    (CATEGORY_SLUGS as readonly string[]).includes(s),
-  );
+const categoryZ = z.string().trim().min(1);
 
 const specRowZ = z.object({
   label: z.string(),

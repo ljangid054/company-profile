@@ -30,7 +30,7 @@ export const revalidate = 60;
 export default async function ProductsPage() {
   const clientFetch = process.env.NEXT_PUBLIC_FETCH_PRODUCTS_FROM_API === "1";
   const products = clientFetch ? null : await getAllProductsMerged();
-  const cats = getAllCategories();
+  const cats = await getAllCategories();
 
   return (
     <Section coverBackground coverScrim="section" className="pt-12 sm:pt-16">
@@ -103,7 +103,7 @@ export default async function ProductsPage() {
           {clientFetch ? (
             <ProductsCatalogFromApi />
           ) : (
-            <ProductsCatalog products={products!} />
+            <ProductsCatalog products={products!} categories={cats} />
           )}
         </FadeIn>
 

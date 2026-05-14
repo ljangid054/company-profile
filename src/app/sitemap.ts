@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { siteConfig } from "@/config/site";
 import { getAllProductsMerged } from "@/lib/products-merged";
-import { getCategorySlugs } from "@/lib/products";
+import { getCategorySlugs } from "@/lib/categories";
 
 export const revalidate = 3600;
 
@@ -33,7 +33,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ];
 
-  for (const category of getCategorySlugs()) {
+  const categorySlugs = await getCategorySlugs();
+  for (const category of categorySlugs) {
     routes.push({
       url: `${base}/products/${category}`,
       lastModified: ts,

@@ -1,3 +1,4 @@
+/** Default category slugs (seeded in Supabase migration and static JSON). */
 export const CATEGORY_SLUGS = [
   "heritage-desi",
   "premium-handcrafted",
@@ -7,7 +8,7 @@ export const CATEGORY_SLUGS = [
   "limited-editions",
 ] as const;
 
-export type CategorySlug = (typeof CATEGORY_SLUGS)[number];
+export type CategorySlug = string;
 
 export type Product = {
   id: string;
@@ -23,12 +24,12 @@ export type Product = {
   features: string[];
   applications: string[];
   featured?: boolean;
-  /** Optional list price or range, e.g. "₹12,500" — from sheet or JSON */
+  /** Optional list price or range, e.g. "₹12,500" */
   price?: string;
 };
 
 export type CategoryInfo = {
-  slug: CategorySlug;
+  slug: string;
   title: string;
   description: string;
 };

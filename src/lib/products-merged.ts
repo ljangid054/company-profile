@@ -1,28 +1,26 @@
 import { unstable_cache } from "next/cache";
 import productsData from "@/data/products.json";
-import {
-  fetchProductsFromGoogleSheet,
-  isGoogleSheetConfigured,
-} from "@/lib/google-sheet-products";
+import { getSupabaseProducts } from "@/lib/supabase/catalog";
+import { isSupabaseCatalogEnabled } from "@/lib/supabase/env";
 import type { CategorySlug, Product } from "@/types/product";
 
 const staticProducts = productsData as Product[];
 
 /**
- * When Google Sheet env is set: catalog is **sheet only** (no `products.json` on the site).
- * When not set: catalog falls back to static `products.json`.
+ * When `NEXT_PUBLIC_CATALOG_SOURCE=supabase`: Postgres catalog.
+ * Otherwise: static `products.json`.
  */
 async function computeCatalogProducts(): Promise<Product[]> {
-  if (isGoogleSheetConfigured()) {
-    return fetchProductsFromGoogleSheet();
+  if (isSupabaseCatalogEnabled()) {
+    return getSupabaseProducts();
   }
   return staticProducts;
 }
 
 const getCatalogCached = unstable_cache(
   computeCatalogProducts,
-  ["catalog-products-sheet-or-static-v2"],
-  { revalidate: 60 },
+  ["catalog-products-v3"],
+  { revalidate: 60, tags: ["catalog-products"] },
 );
 
 export async function getAllProductsMerged(): Promise<Product[]> {

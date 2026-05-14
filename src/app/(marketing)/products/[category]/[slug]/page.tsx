@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getAllProducts, isCategorySlug } from "@/lib/products";
-import { getProductMerged } from "@/lib/products-merged";
-import { getCategoryBySlug } from "@/lib/categories";
+import {
+  getAllProductsMerged,
+  getProductMerged,
+} from "@/lib/products-merged";
+import { getCategoryBySlug, isCategorySlug } from "@/lib/categories";
 import { siteConfig } from "@/config/site";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
@@ -13,7 +15,6 @@ import { ProductGallery } from "@/components/products/product-gallery";
 import { ProductSpecsTable } from "@/components/products/product-specs-table";
 import { ProductInquiryBar } from "@/components/products/product-inquiry-bar";
 import { FadeIn } from "@/components/motion/fade-in";
-import type { CategorySlug } from "@/types/product";
 import { toAbsoluteUrl } from "@/lib/absolute-url";
 
 export const revalidate = 60;
@@ -24,7 +25,8 @@ type Props = {
 };
 
 export async function generateStaticParams() {
-  return getAllProducts().map((p) => ({
+  const products = await getAllProductsMerged();
+  return products.map((p) => ({
     category: p.category,
     slug: p.slug,
   }));
@@ -32,8 +34,8 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { category, slug } = await params;
-  if (!isCategorySlug(category)) return { title: "Product" };
-  const product = await getProductMerged(category as CategorySlug, slug);
+  if (!(await isCategorySlug(category))) return { title: "Product" };
+  const product = await getProductMerged(category, slug);
   if (!product) return { title: "Product" };
 
   return {
@@ -52,16 +54,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ProductDetailPage({ params }: Props) {
   const { category, slug } = await params;
-  if (!isCategorySlug(category)) {
+  if (!(await isCategorySlug(category))) {
     notFound();
   }
 
-  const product = await getProductMerged(category as CategorySlug, slug);
+  const product = await getProductMerged(category, slug);
   if (!product) {
     notFound();
   }
 
-  const cat = getCategoryBySlug(category);
+  const cat = await getCategoryBySlug(category);
 
   return (
     <Section coverBackground coverScrim="section" className="pt-12 sm:pt-16">

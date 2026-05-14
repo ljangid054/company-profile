@@ -4,7 +4,7 @@ import "./globals.css";
 import { siteConfig } from "@/config/site";
 import { absoluteUrl } from "@/lib/utils-nav";
 import { SITE_LOGO_IMAGE, LINEUP_IMAGE_PRIMARY } from "@/config/visual";
-import { SiteShell } from "@/components/layout/site-shell";
+import { SupabaseHashSessionHandler } from "@/components/auth/supabase-hash-session-handler";
 import { Toaster } from "@/components/ui/sonner";
 
 const dmSans = Plus_Jakarta_Sans({
@@ -115,7 +115,8 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <SiteShell>{children}</SiteShell>
+        {children}
+        <SupabaseHashSessionHandler />
         <Toaster richColors closeButton position="top-center" />
       </body>
     </html>

@@ -3,8 +3,7 @@
 import { useDeferredValue, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
-import type { CategorySlug, Product } from "@/types/product";
-import { getAllCategories } from "@/lib/categories";
+import type { CategoryInfo, Product } from "@/types/product";
 import { Input } from "@/components/ui/input";
 import { ProductCard } from "@/components/products/product-card";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
@@ -13,12 +12,13 @@ import { cn } from "@/lib/utils";
 
 type Props = {
   products: Product[];
+  categories: CategoryInfo[];
 };
 
-export function ProductsCatalog({ products }: Props) {
+export function ProductsCatalog({ products, categories }: Props) {
   const [query, setQuery] = useState("");
   const deferredQuery = useDeferredValue(query);
-  const [category, setCategory] = useState<CategorySlug | "all">("all");
+  const [category, setCategory] = useState<string | "all">("all");
 
   const filtered = useMemo(() => {
     const q = deferredQuery.trim().toLowerCase();
@@ -40,7 +40,7 @@ export function ProductsCatalog({ products }: Props) {
     });
   }, [products, deferredQuery, category]);
 
-  const cats = getAllCategories();
+  const cats = categories;
 
   return (
     <div className="space-y-10">

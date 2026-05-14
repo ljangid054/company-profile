@@ -1,31 +1,47 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import type { Product } from "@/types/product";
+import type { CategoryInfo, Product } from "@/types/product";
 import { ProductsCatalog } from "@/components/products/products-catalog";
 
 export function ProductsCatalogFromApi() {
   const [products, setProducts] = useState<Product[] | null>(null);
+  const [categories, setCategories] = useState<CategoryInfo[] | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     let cancelled = false;
     (async () => {
       try {
-        const res = await fetch("/api/products", { cache: "no-store" });
-        if (!res.ok) {
-          throw new Error(`HTTP ${res.status}`);
+        const [pres, cres] = await Promise.all([
+          fetch("/api/products", { cache: "no-store" }),
+          fetch("/api/categories", { cache: "no-store" }),
+        ]);
+        if (!pres.ok) {
+          throw new Error(`Products HTTP ${pres.status}`);
         }
-        const data: unknown = await res.json();
+        if (!cres.ok) {
+          throw new Error(`Categories HTTP ${cres.status}`);
+        }
+        const pdata: unknown = await pres.json();
+        const cdata: unknown = await cres.json();
         if (
-          !data ||
-          typeof data !== "object" ||
-          !Array.isArray((data as { products?: unknown }).products)
+          !pdata ||
+          typeof pdata !== "object" ||
+          !Array.isArray((pdata as { products?: unknown }).products)
         ) {
-          throw new Error("Invalid response");
+          throw new Error("Invalid products response");
+        }
+        if (
+          !cdata ||
+          typeof cdata !== "object" ||
+          !Array.isArray((cdata as { categories?: unknown }).categories)
+        ) {
+          throw new Error("Invalid categories response");
         }
         if (!cancelled) {
-          setProducts((data as { products: Product[] }).products);
+          setProducts((pdata as { products: Product[] }).products);
+          setCategories((cdata as { categories: CategoryInfo[] }).categories);
         }
       } catch (e) {
         if (!cancelled) {
@@ -46,7 +62,7 @@ export function ProductsCatalogFromApi() {
     );
   }
 
-  if (!products) {
+  if (!products || !categories) {
     return (
       <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
         {Array.from({ length: 6 }).map((_, i) => (
@@ -60,5 +76,5 @@ export function ProductsCatalogFromApi() {
     );
   }
 
-  return <ProductsCatalog products={products} />;
+  return <ProductsCatalog products={products} categories={categories} />;
 }

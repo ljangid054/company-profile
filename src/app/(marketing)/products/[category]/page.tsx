@@ -1,15 +1,17 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getCategorySlugs, isCategorySlug } from "@/lib/products";
 import { getProductsByCategoryMerged } from "@/lib/products-merged";
-import { getCategoryBySlug } from "@/lib/categories";
+import {
+  getCategoryBySlug,
+  getCategorySlugs,
+  isCategorySlug,
+} from "@/lib/categories";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
 import { ProductCard } from "@/components/products/product-card";
 import { Button } from "@/components/ui/button";
 import { FadeIn } from "@/components/motion/fade-in";
-import type { CategorySlug } from "@/types/product";
 
 type Props = {
   params: Promise<{ category: string }>;
@@ -18,15 +20,16 @@ type Props = {
 export const revalidate = 60;
 
 export async function generateStaticParams() {
-  return getCategorySlugs().map((category) => ({ category }));
+  const slugs = await getCategorySlugs();
+  return slugs.map((category) => ({ category }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { category } = await params;
-  if (!isCategorySlug(category)) {
+  if (!(await isCategorySlug(category))) {
     return { title: "Category" };
   }
-  const info = getCategoryBySlug(category);
+  const info = await getCategoryBySlug(category);
   return {
     title: info?.title ?? "Category",
     description: info?.description,
@@ -40,12 +43,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function CategoryPage({ params }: Props) {
   const { category } = await params;
-  if (!isCategorySlug(category)) {
+  if (!(await isCategorySlug(category))) {
     notFound();
   }
 
-  const info = getCategoryBySlug(category);
-  const items = await getProductsByCategoryMerged(category as CategorySlug);
+  const info = await getCategoryBySlug(category);
+  const items = await getProductsByCategoryMerged(category);
 
   if (!info) {
     notFound();

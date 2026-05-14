@@ -41,10 +41,7 @@ export function searchProducts(query: string): Product[] {
   });
 }
 
-export function getCategorySlugs(): CategorySlug[] {
+/** Slugs from bundled JSON only (legacy helpers). Prefer `getCategorySlugs` in `@/lib/categories`. */
+export function getCategorySlugsFromStaticJson(): CategorySlug[] {
   return [...CATEGORY_SLUGS];
-}
-
-export function isCategorySlug(s: string): s is CategorySlug {
-  return (CATEGORY_SLUGS as readonly string[]).includes(s);
 }

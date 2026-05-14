@@ -37,6 +37,11 @@ export function ContactForm() {
   const sku = searchParams.get("product");
   const seededRef = useRef(false);
 
+  function clearAttachmentInput() {
+    const el = document.getElementById("contact-attachment") as HTMLInputElement | null;
+    if (el) el.value = "";
+  }
+
   const ajaxUrl = useMemo(
     () => buildAjaxEndpoint(siteConfig.formSubmitAction),
     [],
@@ -49,6 +54,7 @@ export function ContactForm() {
     company: "",
     message: "",
   });
+  const [attachment, setAttachment] = useState<File | null>(null);
 
   useEffect(() => {
     if (!sku || seededRef.current) return;
@@ -69,6 +75,35 @@ export function ContactForm() {
     setFieldErrors((prev) => ({ ...prev, [key]: undefined }));
   }
 
+  async function submitViaFormSubmit(parsed: z.infer<typeof schema>) {
+    if (!ajaxUrl) {
+      toast.error("Form endpoint not configured.");
+      return false;
+    }
+    const subject =
+      `Somada inquiry — ${parsed.company?.trim() ? parsed.company : parsed.name}`;
+    const res = await fetch(ajaxUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        name: parsed.name,
+        email: parsed.email,
+        phone: parsed.phone,
+        company: parsed.company ?? "",
+        message: parsed.message,
+        _subject: subject,
+        _template: "table",
+      }),
+    });
+    if (!res.ok) {
+      throw new Error("Request failed");
+    }
+    return true;
+  }
+
   async function submit() {
     const parsed = schema.safeParse(values);
     if (!parsed.success) {
@@ -84,34 +119,75 @@ export function ContactForm() {
       return;
     }
 
-    if (!ajaxUrl) {
-      toast.error("Form endpoint not configured.");
-      return;
-    }
-
     startTransition(async () => {
       try {
-        const subject =
-          `Somada inquiry — ${parsed.data.company?.trim() ? parsed.data.company : parsed.data.name}`;
-        const res = await fetch(ajaxUrl, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-          body: JSON.stringify({
-            name: parsed.data.name,
-            email: parsed.data.email,
-            phone: parsed.data.phone,
-            company: parsed.data.company ?? "",
-            message: parsed.data.message,
-            _subject: subject,
-            _template: "table",
-          }),
-        });
+        let res: Response;
+        if (attachment) {
+          const fd = new FormData();
+          fd.append("name", parsed.data.name);
+          fd.append("email", parsed.data.email);
+          fd.append("phone", parsed.data.phone);
+          fd.append("company", parsed.data.company ?? "");
+          fd.append("message", parsed.data.message);
+          if (sku) fd.append("productSku", sku);
+          fd.append("locale", "en");
+          fd.append("attachment", attachment);
+          res = await fetch("/api/contact", { method: "POST", body: fd });
+        } else {
+          res = await fetch("/api/contact", {
+            method: "POST",
+            headers: { "Content-Type": "application/json", Accept: "application/json" },
+            body: JSON.stringify({
+              name: parsed.data.name,
+              email: parsed.data.email,
+              phone: parsed.data.phone,
+              company: parsed.data.company,
+              message: parsed.data.message,
+              productSku: sku ?? undefined,
+              locale: "en",
+            }),
+          });
+        }
+
+        if (res.status === 503) {
+          if (attachment && !ajaxUrl) {
+            toast.error(
+              "File uploads need Supabase configured with SUPABASE_SERVICE_ROLE_KEY on the server.",
+            );
+            return;
+          }
+          if (!ajaxUrl) {
+            toast.error("Contact storage is not configured.");
+            return;
+          }
+          const ok = await submitViaFormSubmit(parsed.data);
+          if (ok) {
+            toast.success("Message sent — our workshop desk will reply shortly.");
+            setValues({
+              name: "",
+              email: "",
+              phone: "",
+              company: "",
+              message: "",
+            });
+            setAttachment(null);
+            clearAttachmentInput();
+          }
+          return;
+        }
+
+        const body: unknown = await res.json().catch(() => ({}));
+        const errMsg =
+          body &&
+          typeof body === "object" &&
+          "error" in body &&
+          typeof (body as { error: unknown }).error === "string"
+            ? (body as { error: string }).error
+            : "Could not send right now.";
 
         if (!res.ok) {
-          throw new Error("Request failed");
+          toast.error(errMsg);
+          return;
         }
 
         toast.success("Message sent — our workshop desk will reply shortly.");
@@ -122,6 +198,8 @@ export function ContactForm() {
           company: "",
           message: "",
         });
+        setAttachment(null);
+        clearAttachmentInput();
       } catch {
         toast.error("Could not send right now. Try WhatsApp or email.");
       }
@@ -200,6 +278,22 @@ export function ContactForm() {
           ) : null}
         </div>
 
+        <div className="grid gap-2">
+          <Label htmlFor="contact-attachment">Reference image (optional, max 5MB)</Label>
+          <Input
+            id="contact-attachment"
+            type="file"
+            accept="image/jpeg,image/png,image/webp,image/gif"
+            onChange={(e) => {
+              const f = e.target.files?.[0];
+              setAttachment(f ?? null);
+            }}
+          />
+          <p className="text-xs text-muted-foreground">
+            JPEG, PNG, WebP, or GIF. Stored in Supabase when the contact API is configured.
+          </p>
+        </div>
+
         <Button
           type="button"
           size="lg"
@@ -211,10 +305,11 @@ export function ContactForm() {
         </Button>
 
         <p className="text-xs leading-relaxed text-muted-foreground">
-          This form posts through FormSubmit’s AJAX endpoint. Replace{" "}
-          <span className="text-foreground">{siteConfig.contact.email}</span> in{" "}
-          <code className="rounded bg-muted px-1 py-0.5 text-[0.7rem]">src/config/site.ts</code>{" "}
-          with your verified inbox before launch.
+          When Supabase is configured (see <code className="rounded bg-muted px-1 py-0.5 text-[0.7rem]">supabase/README.md</code>
+          ), inquiries are saved in Postgres and optional images in a private bucket. If the API is
+          unavailable, the form may fall back to FormSubmit — keep{" "}
+          <span className="text-foreground">{siteConfig.contact.email}</span> verified in{" "}
+          <code className="rounded bg-muted px-1 py-0.5 text-[0.7rem]">src/config/site.ts</code>.
         </p>
       </div>
     </div>
