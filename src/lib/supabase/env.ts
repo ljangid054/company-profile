@@ -5,11 +5,15 @@ export function isSupabaseConfigured(): boolean {
   );
 }
 
+/**
+ * Storefront categories/products: read from Supabase when URL + anon key exist,
+ * unless explicitly forced to static JSON (see `NEXT_PUBLIC_CATALOG_SOURCE`).
+ */
 export function isSupabaseCatalogEnabled(): boolean {
-  return (
-    isSupabaseConfigured() &&
-    process.env.NEXT_PUBLIC_CATALOG_SOURCE?.trim().toLowerCase() === "supabase"
-  );
+  if (!isSupabaseConfigured()) return false;
+  const mode = process.env.NEXT_PUBLIC_CATALOG_SOURCE?.trim().toLowerCase();
+  if (mode === "static" || mode === "json" || mode === "local") return false;
+  return true;
 }
 
 export function isServiceRoleConfigured(): boolean {

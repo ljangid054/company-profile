@@ -7,8 +7,8 @@ import type { CategorySlug, Product } from "@/types/product";
 const staticProducts = productsData as Product[];
 
 /**
- * When `NEXT_PUBLIC_CATALOG_SOURCE=supabase`: Postgres catalog.
- * Otherwise: static `products.json`.
+ * When Supabase URL + anon key are set: Postgres catalog (unless
+ * `NEXT_PUBLIC_CATALOG_SOURCE=static`). Otherwise: static `products.json`.
  */
 async function computeCatalogProducts(): Promise<Product[]> {
   if (isSupabaseCatalogEnabled()) {

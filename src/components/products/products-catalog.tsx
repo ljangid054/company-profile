@@ -13,9 +13,11 @@ import { cn } from "@/lib/utils";
 type Props = {
   products: Product[];
   categories: CategoryInfo[];
+  /** When true, listings were loaded from Postgres (Supabase) on the server. */
+  dataFromSupabase?: boolean;
 };
 
-export function ProductsCatalog({ products, categories }: Props) {
+export function ProductsCatalog({ products, categories, dataFromSupabase = false }: Props) {
   const [query, setQuery] = useState("");
   const deferredQuery = useDeferredValue(query);
   const [category, setCategory] = useState<string | "all">("all");
@@ -57,7 +59,9 @@ export function ProductsCatalog({ products, categories }: Props) {
             autoComplete="off"
           />
           <p className="text-xs text-muted-foreground">
-            Filtering runs entirely in your browser—no tracking, no database calls.
+            {dataFromSupabase
+              ? "Listings come from your Somada catalog in Supabase. Search and filters run in your browser."
+              : "Listings come from the bundled catalog file. Search and filters run in your browser."}
           </p>
         </div>
       </div>

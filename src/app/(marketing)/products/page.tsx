@@ -4,6 +4,7 @@ import Link from "next/link";
 import { siteConfig } from "@/config/site";
 import { getAllProductsMerged } from "@/lib/products-merged";
 import { getAllCategories } from "@/lib/categories";
+import { isSupabaseCatalogEnabled } from "@/lib/supabase/env";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
 import { Heading } from "@/components/ui/heading";
@@ -31,6 +32,11 @@ export default async function ProductsPage() {
   const clientFetch = process.env.NEXT_PUBLIC_FETCH_PRODUCTS_FROM_API === "1";
   const products = clientFetch ? null : await getAllProductsMerged();
   const cats = await getAllCategories();
+  const fromDatabase = isSupabaseCatalogEnabled();
+  const lineWord = cats.length === 1 ? "line" : "lines";
+  const dbDescription = clientFetch
+    ? `Browse ${cats.length} workshop ${lineWord} from the live Somada catalog (database-backed). Heritage desi silhouettes, bespoke pairs, lounge programs, and collector drops—quoted bench-to-bench.`
+    : `Browse ${cats.length} workshop ${lineWord} and ${products!.length} products from the Somada catalog (synced from your database). Heritage desi silhouettes, bespoke pairs, lounge programs, and collector drops—quoted bench-to-bench.`;
 
   return (
     <Section coverBackground coverScrim="section" className="pt-12 sm:pt-16">
@@ -40,7 +46,11 @@ export default async function ProductsPage() {
             eyebrow="Catalog"
             as="h1"
             title="Handcrafted brass—built for hospitality reality"
-            description="Explore six handcrafted hookah lines—from heritage desi silhouettes and bespoke wedding pairs to lounge rotations and numbered collector drops. Every hookah is quoted bench-to-bench."
+            description={
+              fromDatabase
+                ? dbDescription
+                : `Explore ${cats.length} handcrafted hookah ${lineWord}—from heritage desi silhouettes and bespoke wedding pairs to lounge rotations and numbered collector drops. Every hookah is quoted bench-to-bench.`
+            }
           />
         </FadeIn>
 
@@ -101,9 +111,13 @@ export default async function ProductsPage() {
 
         <FadeIn variant="blur" delay={0.08} className="mt-14">
           {clientFetch ? (
-            <ProductsCatalogFromApi />
+            <ProductsCatalogFromApi dataFromSupabase={fromDatabase} />
           ) : (
-            <ProductsCatalog products={products!} categories={cats} />
+            <ProductsCatalog
+              products={products!}
+              categories={cats}
+              dataFromSupabase={fromDatabase}
+            />
           )}
         </FadeIn>
 

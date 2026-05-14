@@ -1,6 +1,6 @@
 "use server";
 
-import { revalidateTag } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 import { createServerSupabaseClient } from "@/lib/supabase/server";
 import { createServiceRoleClient } from "@/lib/supabase/service-role";
@@ -10,6 +10,9 @@ function revalidateCatalog() {
   revalidateTag("supabase-products", "max");
   revalidateTag("supabase-categories", "max");
   revalidateTag("catalog-products", "max");
+  revalidatePath("/", "layout");
+  revalidatePath("/products", "layout");
+  revalidatePath("/sitemap.xml");
 }
 
 function splitLines(raw: string): string[] {

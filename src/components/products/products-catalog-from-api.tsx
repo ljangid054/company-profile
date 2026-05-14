@@ -4,7 +4,12 @@ import { useEffect, useState } from "react";
 import type { CategoryInfo, Product } from "@/types/product";
 import { ProductsCatalog } from "@/components/products/products-catalog";
 
-export function ProductsCatalogFromApi() {
+type Props = {
+  /** When true, parent loaded catalog from Supabase-backed APIs. */
+  dataFromSupabase?: boolean;
+};
+
+export function ProductsCatalogFromApi({ dataFromSupabase = false }: Props) {
   const [products, setProducts] = useState<Product[] | null>(null);
   const [categories, setCategories] = useState<CategoryInfo[] | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -76,5 +81,5 @@ export function ProductsCatalogFromApi() {
     );
   }
 
-  return <ProductsCatalog products={products} categories={categories} />;
+  return <ProductsCatalog products={products} categories={categories} dataFromSupabase={dataFromSupabase} />;
 }

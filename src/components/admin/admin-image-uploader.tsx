@@ -37,18 +37,20 @@ export function AdminImageUploader({ onUploaded }: Props) {
 
   return (
     <div className="space-y-2">
-      <label className="grid gap-1 text-xs text-zinc-500">
-        <span>Upload image (stores in product-images bucket)</span>
+      <div className="grid gap-2">
+        <span className="text-xs font-medium text-muted-foreground">
+          Upload image (stores in product-images bucket)
+        </span>
         <input
           ref={inputRef}
           type="file"
           accept="image/jpeg,image/png,image/webp,image/gif"
           disabled={busy}
           onChange={(ev) => void handleChange(ev)}
-          className="text-sm text-zinc-200 file:mr-3 file:rounded-md file:border-0 file:bg-zinc-800 file:px-3 file:py-1.5 file:text-xs file:text-white"
+          className="text-sm text-foreground file:mr-3 file:rounded-lg file:border-0 file:bg-secondary file:px-3 file:py-1.5 file:text-xs file:font-medium file:text-secondary-foreground hover:file:bg-secondary/80"
         />
-      </label>
-      {msg ? <p className="text-xs text-red-400">{msg}</p> : null}
+      </div>
+      {msg ? <p className="text-xs text-destructive">{msg}</p> : null}
     </div>
   );
 }

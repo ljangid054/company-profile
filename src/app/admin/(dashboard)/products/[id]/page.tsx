@@ -6,6 +6,7 @@ import {
   AdminProductForm,
   type AdminProductInitial,
 } from "@/components/admin/admin-product-form";
+import { Button } from "@/components/ui/button";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -35,7 +36,7 @@ function parseSpecs(raw: unknown): { label: string; value: string }[] {
 
 export default async function AdminProductEditPage({ params, searchParams }: Props) {
   if (!isSupabaseConfigured()) {
-    return <p className="text-sm text-zinc-500">Configure Supabase first.</p>;
+    return <p className="text-sm text-muted-foreground">Configure Supabase first.</p>;
   }
   const { id } = await params;
   const sp = await searchParams;
@@ -48,7 +49,7 @@ export default async function AdminProductEditPage({ params, searchParams }: Pro
 
   if (pErr || cErr) {
     return (
-      <p className="text-sm text-red-400">
+      <p className="text-sm text-destructive">
         {pErr?.message ?? cErr?.message ?? "Error"}
       </p>
     );
@@ -77,13 +78,13 @@ export default async function AdminProductEditPage({ params, searchParams }: Pro
   return (
     <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-4">
-        <h1 className="font-heading text-3xl text-white">Edit product</h1>
-        <Link href="/admin/products" className="text-sm text-amber-400 hover:underline">
-          Back to list
-        </Link>
+        <h1 className="font-heading text-3xl text-foreground">Edit product</h1>
+        <Button variant="ghost" size="sm" asChild>
+          <Link href="/admin/products">Back to list</Link>
+        </Button>
       </div>
       {sp.error ? (
-        <p className="text-sm text-red-400">{decodeURIComponent(sp.error)}</p>
+        <p className="text-sm text-destructive">{decodeURIComponent(sp.error)}</p>
       ) : null}
       <AdminProductForm categories={cats ?? []} initial={initial} />
     </div>

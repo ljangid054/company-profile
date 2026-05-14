@@ -13,10 +13,12 @@ on conflict (user_id) do update set role = excluded.role;
 
 5. In the app `.env`, set:
 
+- `NEXT_PUBLIC_SITE_URL` — your public origin (e.g. `http://localhost:3000` in dev, production URL when deployed).
 - `NEXT_PUBLIC_SUPABASE_URL`
 - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
 - `SUPABASE_SERVICE_ROLE_KEY` (server only; never expose to the browser)
-- Optional: `NEXT_PUBLIC_CATALOG_SOURCE=supabase` to serve the storefront from Postgres instead of static `src/data/products.json`.
+
+With the three Supabase variables set, the **marketing site** (`/products`, category pages, sitemap) reads **categories and products from Postgres**. To keep using bundled `src/data/products.json` + `src/data/categories.ts` instead, set `NEXT_PUBLIC_CATALOG_SOURCE=static`. (Useful for offline `next build` in CI when the project URL is unreachable.)
 
 6. **Sub-users**: sign in as super admin, open **Admin → Users**, and create accounts (the API uses the service role). New users get role `admin`.
 
