@@ -2,42 +2,41 @@
 
 import { testimonials } from "@/content/copy";
 import { Container } from "@/components/ui/container";
-import { Section } from "@/components/ui/section";
-import { Heading } from "@/components/ui/heading";
-import { FadeIn } from "@/components/motion/fade-in";
-import { Quote } from "lucide-react";
+import { HorizontalMarquee } from "@/components/motion/horizontal-marquee";
+import { TextReveal } from "@/components/motion/text-reveal";
 
 export function TestimonialsSection() {
   return (
-    <Section coverBackground coverScrim="section" className="border-t border-border/60">
+    <section className="section-light overflow-hidden border-b border-section-light-foreground/10 py-20 lg:py-28">
       <Container>
-        <FadeIn variant="blur">
-          <Heading
-            eyebrow="Proof"
-            align="center"
-            as="h2"
-            title="Trusted by lounges, distributors, and boutique brands"
-            description="A snapshot of partner feedback—expect pragmatic timelines, crisp documentation, and brass character that sells itself."
-          />
-        </FadeIn>
-
-        <div className="mt-14 grid gap-8 lg:grid-cols-3">
-          {testimonials.map((t, idx) => (
-            <FadeIn key={t.name} delay={idx * 0.08}>
-              <blockquote className="glass-panel flex h-full flex-col rounded-3xl p-8">
-                <Quote className="size-8 text-primary/80" aria-hidden />
-                <p className="mt-6 flex-1 text-sm leading-relaxed text-muted-foreground">
-                  “{t.quote}”
-                </p>
-                <footer className="mt-8 border-t border-border/60 pt-6">
-                  <p className="font-heading text-base text-foreground">{t.name}</p>
-                  <p className="mt-1 text-xs text-muted-foreground">{t.role}</p>
-                </footer>
-              </blockquote>
-            </FadeIn>
-          ))}
-        </div>
+        <TextReveal>
+          <p className="section-label !text-section-light-foreground/50">Latest stories</p>
+        </TextReveal>
+        <TextReveal delay={0.08}>
+          <h2 className="mega-headline mt-4 text-3xl text-section-light-foreground sm:text-4xl">
+            Trusted by lounges &amp; distributors
+          </h2>
+        </TextReveal>
       </Container>
-    </Section>
+
+      <div className="mt-14">
+        <HorizontalMarquee>
+          {testimonials.map((t) => (
+            <figure
+              key={t.name}
+              className="w-[min(88vw,400px)] shrink-0 border-t border-section-light-foreground/15 pt-8"
+            >
+              <blockquote className="text-sm leading-relaxed text-section-light-foreground/75">
+                &ldquo;{t.quote}&rdquo;
+              </blockquote>
+              <figcaption className="mt-6">
+                <p className="font-semibold text-section-light-foreground">{t.name}</p>
+                <p className="mt-1 text-xs text-section-light-foreground/50">{t.role}</p>
+              </figcaption>
+            </figure>
+          ))}
+        </HorizontalMarquee>
+      </div>
+    </section>
   );
 }

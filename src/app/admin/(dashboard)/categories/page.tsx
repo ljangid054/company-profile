@@ -7,7 +7,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { cn } from "@/lib/utils";
 
 type Props = { searchParams: Promise<{ error?: string }> };
 
@@ -34,17 +33,13 @@ export default async function AdminCategoriesPage({ searchParams }: Props) {
 
   return (
     <div className="space-y-10">
-      <div>
-        <h1 className="font-heading text-3xl text-foreground">Categories</h1>
-        {sp.error ? (
-          <p className="mt-2 text-sm text-destructive">{decodeURIComponent(sp.error)}</p>
-        ) : null}
-      </div>
+      {sp.error ? (
+        <p className="text-sm text-destructive">{decodeURIComponent(sp.error)}</p>
+      ) : null}
 
-      <Card className="overflow-hidden p-0">
-        <CardContent className="overflow-x-auto p-0">
-          <table className="w-full min-w-[640px] text-left text-sm">
-            <thead className="border-b border-border bg-muted/40 text-xs font-medium uppercase tracking-wide text-muted-foreground">
+      <div className="admin-table-wrap overflow-x-auto">
+          <table className="w-full min-w-[640px] text-left">
+            <thead>
               <tr>
                 <th className="px-4 py-3">Slug</th>
                 <th className="px-4 py-3">Title</th>
@@ -54,17 +49,11 @@ export default async function AdminCategoriesPage({ searchParams }: Props) {
             </thead>
             <tbody>
               {(rows ?? []).map((c) => (
-                <tr
-                  key={c.slug}
-                  className={cn(
-                    "border-b border-border/80 transition-colors last:border-0",
-                    "hover:bg-muted/25",
-                  )}
-                >
-                  <td className="px-4 py-3 font-mono text-xs text-foreground">{c.slug}</td>
-                  <td className="px-4 py-3 text-foreground">{c.title}</td>
-                  <td className="px-4 py-3 text-muted-foreground">{c.sort_order}</td>
-                  <td className="px-4 py-3 text-right">
+                <tr key={c.slug}>
+                  <td className="font-mono text-xs text-foreground">{c.slug}</td>
+                  <td className="text-foreground">{c.title}</td>
+                  <td className="text-muted-foreground">{c.sort_order}</td>
+                  <td className="text-right">
                     <form action={deleteCategory} className="inline">
                       <input type="hidden" name="slug" value={c.slug} />
                       <Button
@@ -82,8 +71,7 @@ export default async function AdminCategoriesPage({ searchParams }: Props) {
               ))}
             </tbody>
           </table>
-        </CardContent>
-      </Card>
+      </div>
 
       <Card>
         <CardHeader>

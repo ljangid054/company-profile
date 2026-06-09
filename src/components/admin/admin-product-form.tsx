@@ -39,9 +39,9 @@ const defaultSpecs = `[
 ]`;
 
 const selectClass = cn(
-  "h-10 w-full min-w-0 rounded-xl border border-white/10 bg-background/50 px-3 py-2 text-sm text-foreground shadow-inner shadow-black/20 outline-none transition-[border-color,box-shadow,background-color] duration-300",
-  "focus-visible:border-primary/45 focus-visible:bg-background/70 focus-visible:ring-3 focus-visible:ring-primary/25",
-  "disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 dark:bg-input/25",
+  "h-10 w-full min-w-0 rounded-lg border border-input bg-background px-3 py-2 text-sm text-foreground outline-none transition-colors",
+  "focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/30",
+  "disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50",
 );
 
 export function AdminProductForm({ categories, initial }: Props) {
@@ -53,8 +53,8 @@ export function AdminProductForm({ categories, initial }: Props) {
   );
 
   return (
-    <Card>
-      <CardContent className="pt-6">
+    <Card className="admin-panel border-0 shadow-none">
+      <CardContent className="p-6 sm:p-8">
         <form action={upsertProduct} className="grid max-w-2xl gap-5">
           {initial?.id ? <input type="hidden" name="id" value={initial.id} /> : null}
 

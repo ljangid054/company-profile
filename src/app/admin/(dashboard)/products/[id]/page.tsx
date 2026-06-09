@@ -77,10 +77,9 @@ export default async function AdminProductEditPage({ params, searchParams }: Pro
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-wrap items-center justify-between gap-4">
-        <h1 className="font-heading text-3xl text-foreground">Edit product</h1>
-        <Button variant="ghost" size="sm" asChild>
-          <Link href="/admin/products">Back to list</Link>
+      <div className="flex flex-wrap items-center justify-end gap-4">
+        <Button variant="outline" size="sm" asChild>
+          <Link href="/admin/products">← Back to list</Link>
         </Button>
       </div>
       {sp.error ? (

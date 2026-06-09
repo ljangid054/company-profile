@@ -5,7 +5,8 @@ import { industries } from "@/content/copy";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
 import { Heading } from "@/components/ui/heading";
-import { FadeIn } from "@/components/motion/fade-in";
+import { StaggerReveal, StaggerItem } from "@/components/motion/stagger-reveal";
+import { TextReveal } from "@/components/motion/text-reveal";
 import { Badge } from "@/components/ui/badge";
 
 const reasons = [
@@ -18,35 +19,40 @@ const reasons = [
 
 export function WhyChooseSection() {
   return (
-    <Section coverBackground coverScrim="section" className="border-y border-border/60">
-      <Container className="grid gap-12 lg:grid-cols-2 lg:items-start">
+    <Section tone="cream">
+      <Container className="grid gap-14 lg:grid-cols-2 lg:items-start">
         <div>
-          <FadeIn variant="blur">
+          <TextReveal>
             <Heading
               eyebrow="Why Somada"
               as="h2"
+              tone="cream"
               title="Built for B2B confidence—without losing soul"
               description="Every partnership starts with clarity: materials, tolerances, finishes, timelines. Then we deliver brasswork that feels unmistakably Somada."
             />
-          </FadeIn>
+          </TextReveal>
+
           <ul className="mt-10 space-y-4">
-            {reasons.map((r, i) => (
-              <FadeIn key={r} delay={i * 0.05}>
-                <li className="flex gap-3 text-sm leading-relaxed text-muted-foreground">
-                  <CheckCircle2 className="mt-0.5 size-5 shrink-0 text-primary" aria-hidden />
-                  <span>{r}</span>
-                </li>
-              </FadeIn>
-            ))}
+            <StaggerReveal stagger={0.06}>
+              {reasons.map((r) => (
+                <StaggerItem key={r}>
+                  <li className="flex gap-3 text-sm leading-relaxed text-section-cream-foreground/70">
+                    <CheckCircle2
+                      className="mt-0.5 size-5 shrink-0 text-primary"
+                      aria-hidden
+                    />
+                    <span>{r}</span>
+                  </li>
+                </StaggerItem>
+              ))}
+            </StaggerReveal>
           </ul>
         </div>
 
-        <FadeIn delay={0.1} variant="scale">
-          <div className="glass-panel rounded-3xl p-8">
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary">
-              Industries served
-            </p>
-            <p className="mt-3 font-heading text-2xl text-foreground">
+        <TextReveal delay={0.1}>
+          <div className="surface-card p-8 lg:p-10">
+            <p className="eyebrow text-primary">Industries served</p>
+            <p className="display-heading mt-4 text-2xl text-section-cream-foreground">
               Where desi hookah culture meets hospitality discipline
             </p>
             <div className="mt-8 flex flex-wrap gap-2">
@@ -54,14 +60,14 @@ export function WhyChooseSection() {
                 <Badge
                   key={ind}
                   variant="secondary"
-                  className="rounded-full px-4 py-2 text-xs font-medium"
+                  className="rounded-full border border-section-cream-foreground/10 bg-section-cream-foreground/5 px-4 py-2 text-xs font-medium text-section-cream-foreground"
                 >
                   {ind}
                 </Badge>
               ))}
             </div>
           </div>
-        </FadeIn>
+        </TextReveal>
       </Container>
     </Section>
   );

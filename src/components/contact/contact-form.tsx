@@ -207,7 +207,7 @@ export function ContactForm() {
   }
 
   return (
-    <div className="rounded-2xl border border-border/70 bg-card/40 p-6 sm:p-8">
+    <div className="rounded-2xl border border-border/60 bg-card/80 p-6 shadow-xl shadow-black/10 backdrop-blur-sm sm:p-8">
       <div className="grid gap-5">
         <div className="grid gap-2">
           <Label htmlFor="name">Full name</Label>

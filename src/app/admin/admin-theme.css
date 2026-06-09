@@ -1,0 +1,127 @@
+/**
+ * Dataflow-inspired admin dashboard — light workspace, dark sidebar.
+ */
+.admin-theme {
+  --background: oklch(0.965 0.006 260);
+  --foreground: oklch(0.22 0.025 264);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.22 0.025 264);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.22 0.025 264);
+  --primary: oklch(0.52 0.22 264);
+  --primary-foreground: oklch(0.99 0 0);
+  --secondary: oklch(0.94 0.012 260);
+  --secondary-foreground: oklch(0.28 0.025 264);
+  --muted: oklch(0.94 0.01 260);
+  --muted-foreground: oklch(0.48 0.02 260);
+  --accent: oklch(0.93 0.02 264);
+  --accent-foreground: oklch(0.28 0.025 264);
+  --destructive: oklch(0.55 0.2 25);
+  --border: oklch(0.9 0.01 260);
+  --input: oklch(0.9 0.01 260);
+  --ring: oklch(0.52 0.22 264);
+  --radius: 0.75rem;
+  --admin-sidebar: oklch(0.16 0.035 264);
+  --admin-sidebar-fg: oklch(0.94 0.01 260);
+  --admin-sidebar-active: oklch(0.52 0.22 264);
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+.admin-sidebar {
+  background: linear-gradient(180deg, oklch(0.17 0.035 264) 0%, oklch(0.14 0.03 264) 100%);
+  color: var(--admin-sidebar-fg);
+}
+
+.admin-main {
+  background-color: var(--background);
+  background-image: radial-gradient(
+    ellipse 80% 50% at 50% -20%,
+    oklch(0.52 0.22 264 / 0.06),
+    transparent
+  );
+}
+
+.admin-stat-card {
+  border-radius: 0.875rem;
+  border: 1px solid var(--border);
+  background: var(--card);
+  padding: 1.25rem;
+  box-shadow: 0 1px 3px oklch(0 0 0 / 0.04);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.admin-stat-card:hover {
+  border-color: color-mix(in oklch, var(--primary) 25%, var(--border));
+  box-shadow: 0 4px 16px oklch(0.52 0.22 264 / 0.08);
+}
+
+.admin-panel {
+  border-radius: 0.875rem;
+  border: 1px solid var(--border);
+  background: var(--card);
+  box-shadow: 0 1px 3px oklch(0 0 0 / 0.04);
+}
+
+.admin-table-wrap {
+  overflow: hidden;
+  border-radius: 0.875rem;
+  border: 1px solid var(--border);
+  background: var(--card);
+  box-shadow: 0 1px 3px oklch(0 0 0 / 0.04);
+}
+
+.admin-table-wrap table {
+  width: 100%;
+  text-align: left;
+}
+
+.admin-table-wrap table thead {
+  border-bottom: 1px solid var(--border);
+  background: color-mix(in oklch, var(--muted) 70%, transparent);
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted-foreground);
+}
+
+.admin-table-wrap table tbody tr {
+  border-bottom: 1px solid color-mix(in oklch, var(--border) 85%, transparent);
+  transition: background-color 0.15s;
+}
+
+.admin-table-wrap table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.admin-table-wrap table tbody tr:hover {
+  background: color-mix(in oklch, var(--primary) 4%, var(--card));
+}
+
+.admin-table-wrap table th,
+.admin-table-wrap table td {
+  padding: 0.875rem 1rem;
+  font-size: 0.875rem;
+}
+
+.admin-badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 9999px;
+  padding: 0.2rem 0.65rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.admin-badge-success {
+  background: oklch(0.92 0.06 155);
+  color: oklch(0.35 0.1 155);
+}
+
+.admin-badge-muted {
+  background: var(--muted);
+  color: var(--muted-foreground);
+}

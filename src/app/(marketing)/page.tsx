@@ -1,12 +1,16 @@
 import type { Metadata } from "next";
 import { HeroSection } from "@/components/home/hero-section";
-import { CompanyIntroSection } from "@/components/home/company-intro";
-import { FeaturedProductsSection } from "@/components/home/featured-products";
-import { WhyChooseSection } from "@/components/home/why-industries";
-import { GalleryCertificationsSection } from "@/components/home/gallery-certifications";
-import { TestimonialsSection } from "@/components/home/testimonials";
+import { TrustBannerSection } from "@/components/home/trust-banner";
+import { InfrastructureSection } from "@/components/home/infrastructure-section";
+import { ProductStackSection } from "@/components/home/product-stack-section";
+import { EcosystemGridSection } from "@/components/home/ecosystem-grid";
+import { WorkshopTimelineSection } from "@/components/home/workshop-timeline";
+import { FirstMoverSection } from "@/components/home/first-mover-section";
+import { BuildCtaSection } from "@/components/home/build-cta-section";
+import { PulseSection } from "@/components/home/pulse-section";
+import { NewsletterSection } from "@/components/home/newsletter-section";
 import { FinalCtaSection } from "@/components/home/final-cta";
-import { getFeaturedProductsMerged } from "@/lib/products-merged";
+import { GalleryCertificationsSection } from "@/components/home/gallery-certifications";
 import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
@@ -21,17 +25,20 @@ export const metadata: Metadata = {
 
 export const revalidate = 60;
 
-export default async function HomePage() {
-  const featured = await getFeaturedProductsMerged();
-
+export default function HomePage() {
   return (
     <>
       <HeroSection />
-      <CompanyIntroSection />
-      <FeaturedProductsSection products={featured} />
-      <WhyChooseSection />
+      <TrustBannerSection />
+      <InfrastructureSection />
+      <ProductStackSection />
+      <EcosystemGridSection />
+      <WorkshopTimelineSection />
+      <FirstMoverSection />
+      <BuildCtaSection />
+      <PulseSection />
       <GalleryCertificationsSection />
-      <TestimonialsSection />
+      <NewsletterSection />
       <FinalCtaSection />
     </>
   );

@@ -8,7 +8,6 @@ import { Heading } from "@/components/ui/heading";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { FadeIn } from "@/components/motion/fade-in";
-import { CoverBackdrop } from "@/components/ui/cover-backdrop";
 import { PRIMARY_PRODUCT_IMAGE, LINEUP_IMAGE_PRIMARY, LINEUP_IMAGE_SECONDARY } from "@/config/visual";
 
 export const metadata: Metadata = {
@@ -26,35 +25,29 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <>
-      <section className="relative isolate overflow-hidden border-b border-border/60">
-        <div className="absolute inset-0">
-          <CoverBackdrop scrim="hero" priority />
-          <div className="absolute inset-0 z-[2] bg-gradient-to-t from-background via-background/88 to-background/40" />
-        </div>
-        <Container className="relative z-10 py-20 sm:py-24 lg:py-28">
+      <section className="border-b border-border/40 py-20 sm:py-28 lg:py-32">
+        <Container>
           <FadeIn>
-            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-primary">
-              About {siteConfig.name}
-            </p>
-            <h1 className="mt-4 max-w-4xl font-heading text-4xl leading-[1.05] text-foreground sm:text-5xl lg:text-6xl">
-              We craft desi premium handcrafted brass hookahs—rooted in Somda, Rajasthan, tuned for the world.
+            <p className="section-label">About {siteConfig.name}</p>
+            <h1 className="mega-headline mt-6 max-w-4xl text-4xl sm:text-5xl lg:text-6xl">
+              We craft desi premium handcrafted brass hookahs—rooted in Somda, tuned for the world.
             </h1>
-            <p className="mt-6 max-w-2xl text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg">
+            <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
               Somada sits where desi hookah culture meets honest bench craft: hand-guided finishing, balanced stems, and export-minded packing—so collectors and lounges receive brass that feels alive under warm light.
             </p>
-            <div className="mt-10 flex flex-wrap gap-3">
-              <Button asChild size="lg">
-                <Link href="/contact#quote">Request quote</Link>
-              </Button>
-              <Button asChild size="lg" variant="outline">
-                <Link href="/products">View catalog</Link>
-              </Button>
+            <div className="mt-10 flex flex-wrap gap-6">
+              <Link href="/contact#quote" className="link-arrow text-foreground underline">
+                Request quote
+              </Link>
+              <Link href="/products" className="link-arrow text-muted-foreground">
+                View catalog
+              </Link>
             </div>
           </FadeIn>
         </Container>
       </section>
 
-      <Section coverBackground coverScrim="subtle">
+      <Section>
         <Container className="grid gap-12 lg:grid-cols-2 lg:items-start">
           <FadeIn>
             <Heading

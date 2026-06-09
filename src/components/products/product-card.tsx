@@ -1,18 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import { CatalogImage } from "@/components/products/catalog-image";
 import type { Product } from "@/types/product";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { DEFAULT_PRODUCT_IMAGE } from "@/config/visual";
 
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -23,54 +15,52 @@ export function ProductCard({ product }: { product: Product }) {
   const reduce = useReducedMotion();
 
   return (
-    <motion.div
-      whileHover={reduce ? undefined : { y: -6 }}
-      transition={{ duration: 0.4, ease }}
+    <motion.article
+      className="group border border-border/40 bg-card"
+      whileHover={reduce ? undefined : { y: -4 }}
+      transition={{ duration: 0.35, ease }}
     >
-      <Card className="group h-full overflow-hidden border-primary/15 bg-card/70 transition-shadow duration-500 hover:border-primary/40 hover:shadow-xl hover:shadow-primary/10">
-        <Link href={href} className="block focus-visible:outline-none">
-          <div className="relative aspect-[3/4] w-full overflow-hidden bg-gradient-to-b from-muted/50 to-muted/10">
-            <CatalogImage
-              src={cover}
-              alt={product.name}
-              fill
-              className="object-contain object-center p-3 transition-transform duration-700 ease-out group-hover:scale-[1.04] sm:p-4"
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              loading="lazy"
-            />
-            <div
-              className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/40 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-              aria-hidden
-            />
-            {product.featured ? (
-              <Badge className="absolute left-3 top-3 bg-primary text-primary-foreground shadow-md shadow-primary/25">
-                Featured
-              </Badge>
-            ) : null}
-          </div>
-          <CardHeader className="space-y-2">
-            <CardTitle className="font-heading text-xl leading-snug tracking-tight">
-              {product.name}
-            </CardTitle>
-            <CardDescription className="text-sm leading-relaxed">
-              {product.shortDescription}
-            </CardDescription>
-            {product.price ? (
-              <p className="text-sm font-semibold text-primary">{product.price}</p>
-            ) : null}
-          </CardHeader>
+      <Link href={href} className="block focus-visible:outline-none">
+        <div className="relative aspect-[3/4] overflow-hidden bg-muted/20">
+          <CatalogImage
+            src={cover}
+            alt={product.name}
+            fill
+            className="object-contain object-center p-5 transition-transform duration-700 group-hover:scale-[1.03]"
+            sizes="(max-width: 768px) 100vw, 33vw"
+            loading="lazy"
+          />
+          {product.featured ? (
+            <span className="absolute left-3 top-3 bg-foreground px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider text-background">
+              Featured
+            </span>
+          ) : null}
+        </div>
+        <div className="border-t border-border/40 p-5">
+          <h3 className="display-heading text-lg">{product.name}</h3>
+          <p className="mt-2 text-sm text-muted-foreground line-clamp-2">
+            {product.shortDescription}
+          </p>
+          {product.price ? (
+            <p className="mt-3 text-sm font-medium">{product.price}</p>
+          ) : null}
+          <span className="link-arrow mt-4 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100">
+            Details
+            <ArrowRight className="size-3.5" />
+          </span>
+        </div>
+      </Link>
+      <div className="flex gap-4 border-t border-border/40 px-5 py-4 text-sm">
+        <Link href={href} className="underline underline-offset-4 hover:opacity-70">
+          View
         </Link>
-        <CardContent className="flex flex-wrap gap-2 pt-0">
-          <Button asChild size="sm">
-            <Link href={href}>View details</Link>
-          </Button>
-          <Button asChild size="sm" variant="outline">
-            <Link href={`/contact?product=${encodeURIComponent(product.slug)}#quote`}>
-              Request quote
-            </Link>
-          </Button>
-        </CardContent>
-      </Card>
-    </motion.div>
+        <Link
+          href={`/contact?product=${encodeURIComponent(product.slug)}#quote`}
+          className="text-muted-foreground hover:text-foreground"
+        >
+          Quote
+        </Link>
+      </div>
+    </motion.article>
   );
 }

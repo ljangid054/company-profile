@@ -3,6 +3,10 @@ import { redirect } from "next/navigation";
 import { adminLogin } from "@/app/admin/actions";
 import { getStaffContext } from "@/lib/supabase/admin-auth";
 import { isSupabaseConfigured } from "@/lib/supabase/env";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { siteConfig } from "@/config/site";
 
 const NOTICE_COPY: Record<string, string> = {
   signup_confirmed:
@@ -18,74 +22,83 @@ export default async function AdminLoginPage({ searchParams }: Props) {
 
   if (!isSupabaseConfigured()) {
     return (
-      <div className="mx-auto max-w-md px-6 py-24 text-center">
-        <p className="text-lg text-white">Supabase is not configured</p>
-        <p className="mt-3 text-sm text-zinc-500">
-          Add keys to <code className="text-zinc-300">.env</code> (see{" "}
-          <code className="text-zinc-300">supabase/README.md</code>).
-        </p>
-        <Link href="/" className="mt-8 inline-block text-amber-400 hover:underline">
-          Home
-        </Link>
+      <div className="admin-theme flex min-h-screen items-center justify-center px-6">
+        <div className="max-w-md rounded-2xl border border-border bg-card p-8 text-center shadow-sm">
+          <p className="text-lg font-semibold">Supabase is not configured</p>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Add keys to <code className="rounded bg-muted px-1">.env</code>
+          </p>
+          <Link href="/" className="mt-6 inline-block text-sm text-primary hover:underline">
+            Home
+          </Link>
+        </div>
       </div>
     );
   }
 
   const staff = await getStaffContext();
-  if (staff) {
-    redirect("/admin");
-  }
+  if (staff) redirect("/admin");
 
   return (
-    <div className="mx-auto flex min-h-screen max-w-md flex-col justify-center px-6 py-16">
-      <h1 className="font-heading text-3xl text-white">Admin sign in</h1>
-      <p className="mt-2 text-sm text-zinc-500">
-        Staff accounts only — your user must exist in{" "}
-        <code className="text-zinc-300">admin_profiles</code>.
-      </p>
-      {sp.error ? (
-        <p className="mt-4 rounded-lg border border-red-500/40 bg-red-950/40 px-3 py-2 text-sm text-red-300">
-          {decodeURIComponent(sp.error)}
-        </p>
-      ) : null}
-      {sp.notice && NOTICE_COPY[sp.notice] ? (
-        <p className="mt-4 rounded-lg border border-emerald-500/35 bg-emerald-950/35 px-3 py-2 text-sm text-emerald-200">
-          {NOTICE_COPY[sp.notice]}
-        </p>
-      ) : null}
+    <div className="admin-theme flex min-h-screen">
+      <div className="hidden flex-1 flex-col justify-between bg-[var(--admin-sidebar)] p-12 text-white lg:flex">
+        <div>
+          <p className="text-sm font-bold uppercase tracking-widest text-white/60">Dataflow</p>
+          <h1 className="mt-8 text-4xl font-bold leading-tight">
+            {siteConfig.name}
+            <br />
+            Admin Console
+          </h1>
+          <p className="mt-4 max-w-sm text-white/60">
+            Manage products, categories, and export inquiries from one dashboard.
+          </p>
+        </div>
+        <p className="text-xs text-white/40">Staff access only · Somada workshop</p>
+      </div>
 
-      <form action={adminLogin} className="mt-8 grid gap-4">
-        <label className="grid gap-1 text-sm">
-          <span className="text-zinc-400">Email</span>
-          <input
-            name="email"
-            type="email"
-            required
-            autoComplete="email"
-            className="rounded-lg border border-zinc-700 bg-zinc-900 px-3 py-2 text-white"
-          />
-        </label>
-        <label className="grid gap-1 text-sm">
-          <span className="text-zinc-400">Password</span>
-          <input
-            name="password"
-            type="password"
-            required
-            autoComplete="current-password"
-            className="rounded-lg border border-zinc-700 bg-zinc-900 px-3 py-2 text-white"
-          />
-        </label>
-        <button
-          type="submit"
-          className="mt-2 rounded-lg bg-amber-600 py-2.5 text-sm font-semibold text-black hover:bg-amber-500"
-        >
-          Sign in
-        </button>
-      </form>
+      <div className="flex flex-1 flex-col justify-center px-6 py-16 sm:px-12">
+        <div className="mx-auto w-full max-w-sm">
+          <h2 className="text-2xl font-bold text-foreground">Sign in</h2>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Your account must exist in <code className="rounded bg-muted px-1 text-xs">admin_profiles</code>.
+          </p>
 
-      <Link href="/" className="mt-10 text-center text-sm text-zinc-500 hover:text-white">
-        ← Back to site
-      </Link>
+          {sp.error ? (
+            <p className="mt-4 rounded-lg border border-destructive/30 bg-destructive/10 px-3 py-2 text-sm text-destructive">
+              {decodeURIComponent(sp.error)}
+            </p>
+          ) : null}
+          {sp.notice && NOTICE_COPY[sp.notice] ? (
+            <p className="mt-4 rounded-lg border border-emerald-500/30 bg-emerald-500/10 px-3 py-2 text-sm text-emerald-700">
+              {NOTICE_COPY[sp.notice]}
+            </p>
+          ) : null}
+
+          <form action={adminLogin} className="mt-8 grid gap-4">
+            <div className="grid gap-2">
+              <Label htmlFor="email">Email</Label>
+              <Input id="email" name="email" type="email" required autoComplete="email" />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="password">Password</Label>
+              <Input
+                id="password"
+                name="password"
+                type="password"
+                required
+                autoComplete="current-password"
+              />
+            </div>
+            <Button type="submit" className="mt-2 h-11 w-full">
+              Sign in
+            </Button>
+          </form>
+
+          <Link href="/" className="mt-8 block text-center text-sm text-muted-foreground hover:text-foreground">
+            ← Back to storefront
+          </Link>
+        </div>
+      </div>
     </div>
   );
 }

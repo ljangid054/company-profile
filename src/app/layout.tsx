@@ -1,4 +1,4 @@
-import { Plus_Jakarta_Sans, Playfair_Display, Geist_Mono } from "next/font/google";
+import { Inter, Syne, Geist_Mono } from "next/font/google";
 import type { Metadata } from "next";
 import "./globals.css";
 import { siteConfig } from "@/config/site";
@@ -7,16 +7,16 @@ import { SITE_LOGO_IMAGE, LINEUP_IMAGE_PRIMARY } from "@/config/visual";
 import { SupabaseHashSessionHandler } from "@/components/auth/supabase-hash-session-handler";
 import { Toaster } from "@/components/ui/sonner";
 
-const dmSans = Plus_Jakarta_Sans({
+const inter = Inter({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
-  variable: "--font-dm-sans",
+  weight: ["400", "500", "600"],
+  variable: "--font-sans-var",
 });
 
-const display = Playfair_Display({
+const syne = Syne({
   subsets: ["latin"],
-  weight: ["400", "600", "700"],
-  variable: "--font-display",
+  weight: ["600", "700", "800"],
+  variable: "--font-display-var",
 });
 
 const geistMono = Geist_Mono({
@@ -106,10 +106,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`dark ${dmSans.variable} ${display.variable} ${geistMono.variable} h-full`}
-    >
+    <html lang="en" className={`dark ${inter.variable} ${syne.variable} ${geistMono.variable} h-full`}>
       <body className="flex min-h-full flex-col font-sans">
         <script
           type="application/ld+json"

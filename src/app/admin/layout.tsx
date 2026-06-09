@@ -1,9 +1,9 @@
+import "./admin-theme.css";
+
 export default function AdminRootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <div className="min-h-screen bg-background text-foreground antialiased">{children}</div>
-  );
+  return <div className="admin-theme min-h-screen antialiased">{children}</div>;
 }
