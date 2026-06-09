@@ -22,7 +22,12 @@ With the three Supabase variables set, the **marketing site** (`/products`, cate
 
 6. **Sub-users**: sign in as super admin, open **Admin → Users**, and create accounts (the API uses the service role). New users get role `admin`.
 
-7. **Contact form**: uses `POST /api/contact` with the service role to insert rows and optional files into the `contact-files` bucket.
+7. **Contact form**: uses `POST /api/contact` to insert rows into `contact_submissions`. Run migration `20250609170000_contact_insert_policy.sql` so inserts work with the **anon** key when the service role key is missing or wrong. File uploads still need a valid **`SUPABASE_SERVICE_ROLE_KEY`** (Settings → API → `service_role` secret — not the anon key).
+
+   **Production checklist**
+   - Run all migrations in **SQL Editor** (especially `contact_submissions_insert_public` policy).
+   - Set `SUPABASE_SERVICE_ROLE_KEY` to the real **service_role** JWT (decode at [jwt.io](https://jwt.io) — payload must say `"role":"service_role"`).
+   - If the API still returns 500, the form falls back to FormSubmit at `smdmahendra@gmail.com` (verify that inbox once via FormSubmit’s activation email).
 
 ## Email links (`#access_token=…`)
 

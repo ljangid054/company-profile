@@ -28,7 +28,7 @@ export const siteConfig = {
       { days: "Sunday", hours: "By appointment" },
     ],
   },
-  formSubmitAction: "https://formsubmit.co/hello@somadahookah.com",
+  formSubmitAction: "https://formsubmit.co/smdmahendra@gmail.com",
   social: {
     instagram: "https://instagram.com/somadahookah",
   },

@@ -149,33 +149,6 @@ export function ContactForm() {
           });
         }
 
-        if (res.status === 503) {
-          if (attachment && !ajaxUrl) {
-            toast.error(
-              "File uploads need Supabase configured with SUPABASE_SERVICE_ROLE_KEY on the server.",
-            );
-            return;
-          }
-          if (!ajaxUrl) {
-            toast.error("Contact storage is not configured.");
-            return;
-          }
-          const ok = await submitViaFormSubmit(parsed.data);
-          if (ok) {
-            toast.success("Message sent — our workshop desk will reply shortly.");
-            setValues({
-              name: "",
-              email: "",
-              phone: "",
-              company: "",
-              message: "",
-            });
-            setAttachment(null);
-            clearAttachmentInput();
-          }
-          return;
-        }
-
         const body: unknown = await res.json().catch(() => ({}));
         const errMsg =
           body &&
@@ -186,6 +159,32 @@ export function ContactForm() {
             : "Could not send right now.";
 
         if (!res.ok) {
+          const canFallback =
+            !attachment && ajaxUrl && (res.status === 503 || res.status === 500);
+          if (canFallback) {
+            const ok = await submitViaFormSubmit(parsed.data);
+            if (ok) {
+              toast.success("Message sent — our workshop desk will reply shortly.");
+              setValues({
+                name: "",
+                email: "",
+                phone: "",
+                company: "",
+                message: "",
+              });
+              setAttachment(null);
+              clearAttachmentInput();
+            } else {
+              toast.error("Could not send right now. Try WhatsApp or email.");
+            }
+            return;
+          }
+          if (attachment && res.status === 503) {
+            toast.error(
+              "File uploads need a valid SUPABASE_SERVICE_ROLE_KEY on the server.",
+            );
+            return;
+          }
           toast.error(errMsg);
           return;
         }

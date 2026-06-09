@@ -16,6 +16,8 @@ export function isSupabaseCatalogEnabled(): boolean {
   return true;
 }
 
+import { isValidServiceRoleKey } from "@/lib/supabase/keys";
+
 export function isServiceRoleConfigured(): boolean {
-  return Boolean(process.env.SUPABASE_SERVICE_ROLE_KEY?.trim());
+  return isValidServiceRoleKey(process.env.SUPABASE_SERVICE_ROLE_KEY);
 }
