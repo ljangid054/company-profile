@@ -5,6 +5,8 @@ import { siteConfig } from "@/config/site";
 import { absoluteUrl } from "@/lib/utils-nav";
 import { SITE_LOGO_IMAGE, LINEUP_IMAGE_PRIMARY } from "@/config/visual";
 import { SupabaseHashSessionHandler } from "@/components/auth/supabase-hash-session-handler";
+import { AppProviders } from "@/components/providers/app-providers";
+import { BootLoadingLabel } from "@/components/providers/boot-loading-label";
 import { Toaster } from "@/components/ui/sonner";
 
 const lato = Lato({
@@ -107,15 +109,40 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${lato.variable} ${playfair.variable} ${geistMono.variable} h-full`}>
+    <html
+      lang="en"
+      className={`${lato.variable} ${playfair.variable} ${geistMono.variable} h-full boot-loading`}
+      suppressHydrationWarning
+    >
+      <head>
+        <link rel="preload" href="/loader.lottie" as="fetch" crossOrigin="anonymous" />
+      </head>
       <body className="flex min-h-full flex-col font-sans">
+        <script
+          dangerouslySetInnerHTML={{
+            __html: "try{fetch('/loader.lottie',{cache:'force-cache'});}catch(e){}",
+          }}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        {children}
-        <SupabaseHashSessionHandler />
-        <Toaster richColors closeButton position="top-center" />
+        <div
+          id="boot-splash"
+          className="fixed inset-0 z-[99999] flex items-center justify-center bg-[#0a0a0a]"
+          aria-busy="true"
+          aria-label="Loading"
+        >
+          <div className="flex flex-col items-center gap-4 sm:gap-5">
+            <div className="h-32 w-32 shrink-0 sm:h-40 sm:w-40" aria-hidden />
+            <BootLoadingLabel />
+          </div>
+        </div>
+        <AppProviders>
+          {children}
+          <SupabaseHashSessionHandler />
+          <Toaster richColors closeButton position="top-center" />
+        </AppProviders>
       </body>
     </html>
   );
