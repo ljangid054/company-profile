@@ -8,13 +8,11 @@ import {
 import { getCategoryBySlug, isCategorySlug } from "@/lib/categories";
 import { siteConfig } from "@/config/site";
 import { Container } from "@/components/ui/container";
-import { Section } from "@/components/ui/section";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import { ProductGallery } from "@/components/products/product-gallery";
 import { ProductSpecsTable } from "@/components/products/product-specs-table";
 import { ProductInquiryBar } from "@/components/products/product-inquiry-bar";
-import { FadeIn } from "@/components/motion/fade-in";
 import { toAbsoluteUrl } from "@/lib/absolute-url";
 
 export const revalidate = 60;
@@ -66,45 +64,49 @@ export default async function ProductDetailPage({ params }: Props) {
   const cat = await getCategoryBySlug(category);
 
   return (
-    <Section coverBackground coverScrim="section" className="pt-12 sm:pt-16">
-      <Container>
-        <nav className="text-xs text-muted-foreground">
-          <Link className="hover:text-foreground" href="/products">
-            Catalog
+    <section className="py-10 lg:py-14">
+      <Container className="max-w-7xl">
+        <nav className="text-sm text-muted-foreground">
+          <Link className="hover:text-primary" href="/">
+            Home
           </Link>
-          <span className="mx-2 opacity-40">/</span>
-          <Link className="hover:text-foreground" href={`/products/${category}`}>
+          <span className="mx-2">|</span>
+          <Link className="hover:text-primary" href="/products">
+            Shop
+          </Link>
+          <span className="mx-2">|</span>
+          <Link className="hover:text-primary" href={`/products/${category}`}>
             {cat?.title ?? category}
           </Link>
-          <span className="mx-2 opacity-40">/</span>
+          <span className="mx-2">|</span>
           <span className="text-foreground">{product.name}</span>
         </nav>
 
         <div className="mt-10 grid gap-12 lg:grid-cols-2 lg:items-start">
-          <FadeIn variant="scale">
-            <ProductGallery images={product.images} productName={product.name} />
-          </FadeIn>
-          <FadeIn variant="blur" delay={0.08}>
-            <div>
+          <ProductGallery images={product.images} productName={product.name} />
+
+          <div>
             <div className="flex flex-wrap gap-2">
               <Badge variant="secondary">{cat?.title}</Badge>
-              {product.featured ? <Badge>Featured program</Badge> : null}
+              {product.featured ? <Badge>Featured</Badge> : null}
             </div>
-            <h1 className="mt-4 font-heading text-4xl leading-tight text-foreground sm:text-5xl">
+            <h1 className="font-heading mt-4 text-4xl font-semibold leading-tight sm:text-5xl">
               {product.name}
             </h1>
-            <p className="mt-5 text-base leading-relaxed text-muted-foreground sm:text-lg">
+            {product.price ? (
+              <p className="mt-4 text-2xl font-medium text-primary">{product.price}</p>
+            ) : null}
+            <p className="mt-5 text-base leading-relaxed text-muted-foreground">
               {product.shortDescription}
             </p>
-            {product.price ? (
-              <p className="mt-3 text-lg font-semibold text-primary">{product.price}</p>
-            ) : null}
 
-            <Separator className="my-8 bg-border/70" />
+            <ProductInquiryBar product={product} className="mt-8" />
+
+            <Separator className="my-10" />
 
             <div className="space-y-8">
               <div>
-                <h2 className="font-heading text-2xl text-foreground">Specifications</h2>
+                <h2 className="font-heading text-2xl font-semibold">Specifications</h2>
                 <div className="mt-4">
                   <ProductSpecsTable rows={product.specifications} />
                 </div>
@@ -112,7 +114,7 @@ export default async function ProductDetailPage({ params }: Props) {
 
               <div className="grid gap-6 sm:grid-cols-2">
                 <div>
-                  <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">
+                  <h3 className="text-sm font-semibold uppercase tracking-wider text-primary">
                     Material
                   </h3>
                   <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
@@ -120,7 +122,7 @@ export default async function ProductDetailPage({ params }: Props) {
                   </p>
                 </div>
                 <div>
-                  <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">
+                  <h3 className="text-sm font-semibold uppercase tracking-wider text-primary">
                     Finishes
                   </h3>
                   <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
@@ -133,7 +135,7 @@ export default async function ProductDetailPage({ params }: Props) {
 
               <div className="grid gap-6 sm:grid-cols-2">
                 <div>
-                  <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">
+                  <h3 className="text-sm font-semibold uppercase tracking-wider text-primary">
                     Sizes / variants
                   </h3>
                   <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
@@ -143,7 +145,7 @@ export default async function ProductDetailPage({ params }: Props) {
                   </ul>
                 </div>
                 <div>
-                  <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">
+                  <h3 className="text-sm font-semibold uppercase tracking-wider text-primary">
                     Applications
                   </h3>
                   <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
@@ -155,27 +157,22 @@ export default async function ProductDetailPage({ params }: Props) {
               </div>
 
               <div>
-                <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">
+                <h3 className="text-sm font-semibold uppercase tracking-wider text-primary">
                   Features
                 </h3>
                 <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
                   {product.features.map((f) => (
                     <li key={f} className="flex gap-2">
-                      <span className="mt-1 size-1.5 shrink-0 rounded-full bg-primary" aria-hidden />
+                      <span className="mt-1.5 size-1.5 shrink-0 rounded-full bg-primary" aria-hidden />
                       <span>{f}</span>
                     </li>
                   ))}
                 </ul>
               </div>
             </div>
-            </div>
-          </FadeIn>
+          </div>
         </div>
-
-        <FadeIn variant="up" delay={0.1} className="mt-16">
-          <ProductInquiryBar product={product} />
-        </FadeIn>
       </Container>
-    </Section>
+    </section>
   );
 }

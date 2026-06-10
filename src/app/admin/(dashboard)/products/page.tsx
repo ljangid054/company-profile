@@ -54,7 +54,7 @@ export default async function AdminProductsPage({ searchParams }: Props) {
                 <td className="text-muted-foreground">{p.category_slug}</td>
                 <td>
                   {p.featured ? (
-                    <span className="rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
+                    <span className="admin-badge bg-[#f0ede0] px-2 py-0.5 text-xs font-medium text-[#5c5328]">
                       Yes
                     </span>
                   ) : (

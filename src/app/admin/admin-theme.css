@@ -1,35 +1,46 @@
 /**
- * Dataflow-inspired admin dashboard — light workspace, dark sidebar.
+ * Admin — Drinkify-aligned: olive gold primary, warm workspace, dark olive sidebar.
  */
 .admin-theme {
-  --background: oklch(0.965 0.006 260);
-  --foreground: oklch(0.22 0.025 264);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.22 0.025 264);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.22 0.025 264);
-  --primary: oklch(0.52 0.22 264);
-  --primary-foreground: oklch(0.99 0 0);
-  --secondary: oklch(0.94 0.012 260);
-  --secondary-foreground: oklch(0.28 0.025 264);
-  --muted: oklch(0.94 0.01 260);
-  --muted-foreground: oklch(0.48 0.02 260);
-  --accent: oklch(0.93 0.02 264);
-  --accent-foreground: oklch(0.28 0.025 264);
+  --drinkify-gold: #847630;
+  --drinkify-orange: #ff7c31;
+  --background: #f8f8f8;
+  --foreground: #111111;
+  --card: #ffffff;
+  --card-foreground: #111111;
+  --popover: #ffffff;
+  --popover-foreground: #111111;
+  --primary: #847630;
+  --primary-foreground: #ffffff;
+  --secondary: #f0f0f0;
+  --secondary-foreground: #333333;
+  --muted: #f0f0f0;
+  --muted-foreground: #666666;
+  --accent: #f5f3eb;
+  --accent-foreground: #111111;
   --destructive: oklch(0.55 0.2 25);
-  --border: oklch(0.9 0.01 260);
-  --input: oklch(0.9 0.01 260);
-  --ring: oklch(0.52 0.22 264);
-  --radius: 0.75rem;
-  --admin-sidebar: oklch(0.16 0.035 264);
-  --admin-sidebar-fg: oklch(0.94 0.01 260);
-  --admin-sidebar-active: oklch(0.52 0.22 264);
+  --border: #e5e5e5;
+  --input: #ececec;
+  --ring: #84763066;
+  --radius: 0px;
+  --admin-sidebar: #2c2818;
+  --admin-sidebar-fg: #f5f3eb;
+  --admin-sidebar-active: #847630;
+  --admin-sidebar-hover: rgba(255, 255, 255, 0.08);
   background-color: var(--background);
   color: var(--foreground);
+  font-family: var(--font-sans-var), ui-sans-serif, system-ui, sans-serif;
+}
+
+.admin-theme h1,
+.admin-theme h2,
+.admin-theme h3,
+.admin-theme .admin-heading {
+  font-family: var(--font-display-var), ui-serif, Georgia, serif;
 }
 
 .admin-sidebar {
-  background: linear-gradient(180deg, oklch(0.17 0.035 264) 0%, oklch(0.14 0.03 264) 100%);
+  background: linear-gradient(180deg, #322e1e 0%, #2c2818 100%);
   color: var(--admin-sidebar-fg);
 }
 
@@ -37,38 +48,39 @@
   background-color: var(--background);
   background-image: radial-gradient(
     ellipse 80% 50% at 50% -20%,
-    oklch(0.52 0.22 264 / 0.06),
+    rgba(132, 118, 48, 0.06),
     transparent
   );
 }
 
 .admin-stat-card {
-  border-radius: 0.875rem;
+  border-radius: 0;
   border: 1px solid var(--border);
   background: var(--card);
   padding: 1.25rem;
-  box-shadow: 0 1px 3px oklch(0 0 0 / 0.04);
-  transition: border-color 0.2s, box-shadow 0.2s;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.04);
+  transition: border-color 0.5s ease-in-out, box-shadow 0.5s ease-in-out, transform 0.5s ease-in-out;
 }
 
 .admin-stat-card:hover {
-  border-color: color-mix(in oklch, var(--primary) 25%, var(--border));
-  box-shadow: 0 4px 16px oklch(0.52 0.22 264 / 0.08);
+  border-color: color-mix(in srgb, var(--drinkify-gold) 35%, var(--border));
+  box-shadow: 0 4px 16px rgba(132, 118, 48, 0.1);
+  transform: translateY(-2px);
 }
 
 .admin-panel {
-  border-radius: 0.875rem;
+  border-radius: 0;
   border: 1px solid var(--border);
   background: var(--card);
-  box-shadow: 0 1px 3px oklch(0 0 0 / 0.04);
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.04);
 }
 
 .admin-table-wrap {
   overflow: hidden;
-  border-radius: 0.875rem;
+  border-radius: 0;
   border: 1px solid var(--border);
   background: var(--card);
-  box-shadow: 0 1px 3px oklch(0 0 0 / 0.04);
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.04);
 }
 
 .admin-table-wrap table {
@@ -78,17 +90,17 @@
 
 .admin-table-wrap table thead {
   border-bottom: 1px solid var(--border);
-  background: color-mix(in oklch, var(--muted) 70%, transparent);
+  background: var(--secondary);
   font-size: 0.7rem;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
   color: var(--muted-foreground);
 }
 
 .admin-table-wrap table tbody tr {
-  border-bottom: 1px solid color-mix(in oklch, var(--border) 85%, transparent);
-  transition: background-color 0.15s;
+  border-bottom: 1px solid color-mix(in srgb, var(--border) 85%, transparent);
+  transition: background-color 0.5s ease-in-out;
 }
 
 .admin-table-wrap table tbody tr:last-child {
@@ -96,7 +108,7 @@
 }
 
 .admin-table-wrap table tbody tr:hover {
-  background: color-mix(in oklch, var(--primary) 4%, var(--card));
+  background: color-mix(in srgb, var(--drinkify-gold) 5%, var(--card));
 }
 
 .admin-table-wrap table th,
@@ -108,20 +120,59 @@
 .admin-badge {
   display: inline-flex;
   align-items: center;
-  border-radius: 9999px;
-  padding: 0.2rem 0.65rem;
+  border-radius: 0;
+  padding: 0.25rem 0.65rem;
   font-size: 0.7rem;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
 }
 
 .admin-badge-success {
-  background: oklch(0.92 0.06 155);
-  color: oklch(0.35 0.1 155);
+  background: #f0ede0;
+  color: #5c5328;
 }
 
 .admin-badge-muted {
   background: var(--muted);
   color: var(--muted-foreground);
+}
+
+.admin-nav-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.625rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: rgba(245, 243, 235, 0.7);
+  transition: color 0.5s ease-in-out, background-color 0.5s ease-in-out;
+}
+
+.admin-nav-link:hover {
+  color: #ffffff;
+  background: var(--admin-sidebar-hover);
+}
+
+.admin-nav-link.is-active {
+  color: #ffffff;
+  background: var(--admin-sidebar-active);
+}
+
+.admin-login-panel {
+  background: linear-gradient(160deg, #3d3828 0%, #2c2818 55%, #1f1c12 100%);
+}
+
+.admin-icon-chip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(132, 118, 48, 0.15);
+  color: var(--drinkify-gold);
+  transition: background-color 0.5s ease-in-out;
+}
+
+.admin-stat-card:hover .admin-icon-chip {
+  background: rgba(132, 118, 48, 0.22);
 }

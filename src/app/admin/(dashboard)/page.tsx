@@ -34,7 +34,7 @@ export default async function AdminHomePage() {
     <div className="space-y-6">
       <div className="admin-panel flex flex-col justify-between gap-4 p-5 sm:flex-row sm:items-center sm:p-6">
         <div>
-          <p className="text-sm font-semibold text-foreground">Welcome back</p>
+          <p className="admin-heading text-lg font-semibold text-foreground">Welcome back</p>
           <p className="mt-1 max-w-xl text-sm text-muted-foreground">
             Manage your Somada catalog, review export inquiries, and keep the storefront up to date.
           </p>
@@ -74,7 +74,7 @@ export default async function AdminHomePage() {
       <div className="grid gap-6 xl:grid-cols-2">
         <div className="admin-table-wrap">
           <div className="flex items-center justify-between border-b border-border px-4 py-3">
-            <h2 className="text-sm font-semibold">Recent inquiries</h2>
+            <h2 className="admin-heading text-sm font-semibold">Recent inquiries</h2>
             <Link href="/admin/contacts" className="text-xs font-medium text-primary hover:underline">
               View all
             </Link>
@@ -111,7 +111,7 @@ export default async function AdminHomePage() {
 
         <div className="admin-table-wrap">
           <div className="flex items-center justify-between border-b border-border px-4 py-3">
-            <h2 className="text-sm font-semibold">Recently updated products</h2>
+            <h2 className="admin-heading text-sm font-semibold">Recently updated products</h2>
             <Link href="/admin/products" className="text-xs font-medium text-primary hover:underline">
               View all
             </Link>

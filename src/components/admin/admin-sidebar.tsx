@@ -41,7 +41,7 @@ export function AdminSidebar({ role, collapsed, onToggleCollapse }: AdminSidebar
   return (
     <aside
       className={cn(
-        "admin-sidebar relative flex h-full flex-col border-r border-white/5 transition-[width] duration-300",
+        "admin-sidebar relative flex h-full flex-col border-r border-white/5 transition-[width] duration-500 ease-in-out",
         collapsed ? "w-[4.75rem]" : "w-64",
       )}
     >
@@ -51,7 +51,7 @@ export function AdminSidebar({ role, collapsed, onToggleCollapse }: AdminSidebar
           collapsed ? "justify-center px-2" : "px-4",
         )}
       >
-        <span className="relative flex size-9 shrink-0 items-center justify-center rounded-lg bg-white p-1">
+        <span className="relative flex size-9 shrink-0 items-center justify-center bg-white p-1">
           <Image
             src={SITE_LOGO_IMAGE}
             alt={siteConfig.name}
@@ -62,14 +62,16 @@ export function AdminSidebar({ role, collapsed, onToggleCollapse }: AdminSidebar
         </span>
         {!collapsed ? (
           <div className="min-w-0 flex-1">
-            <p className="truncate text-sm font-bold text-white">Somada</p>
-            <p className="text-[10px] uppercase tracking-widest text-white/45">Admin panel</p>
+            <p className="admin-heading truncate text-sm font-semibold text-white">
+              {siteConfig.name}
+            </p>
+            <p className="text-[11px] text-white/50">Admin Console</p>
           </div>
         ) : null}
       </div>
 
       {!collapsed ? (
-        <p className="px-4 pb-2 pt-4 text-[10px] font-semibold uppercase tracking-widest text-white/35">
+        <p className="px-4 pb-2 pt-4 text-[10px] font-semibold uppercase tracking-[0.2em] text-white/35">
           Main menu
         </p>
       ) : null}
@@ -84,10 +86,8 @@ export function AdminSidebar({ role, collapsed, onToggleCollapse }: AdminSidebar
               href={item.href}
               title={collapsed ? item.label : undefined}
               className={cn(
-                "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all",
-                active
-                  ? "bg-[var(--admin-sidebar-active)] text-white shadow-lg shadow-indigo-900/30"
-                  : "text-white/65 hover:bg-white/10 hover:text-white",
+                "admin-nav-link",
+                active && "is-active",
                 collapsed && "justify-center px-2",
               )}
             >
@@ -100,7 +100,7 @@ export function AdminSidebar({ role, collapsed, onToggleCollapse }: AdminSidebar
         {role === "super_admin" ? (
           <>
             {!collapsed ? (
-              <p className="px-3 pb-1 pt-4 text-[10px] font-semibold uppercase tracking-widest text-white/35">
+              <p className="px-3 pb-1 pt-4 text-[10px] font-semibold uppercase tracking-[0.2em] text-white/35">
                 System
               </p>
             ) : null}
@@ -108,10 +108,8 @@ export function AdminSidebar({ role, collapsed, onToggleCollapse }: AdminSidebar
               href="/admin/users"
               title={collapsed ? "Users" : undefined}
               className={cn(
-                "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all",
-                isActive("/admin/users")
-                  ? "bg-[var(--admin-sidebar-active)] text-white"
-                  : "text-white/65 hover:bg-white/10 hover:text-white",
+                "admin-nav-link",
+                isActive("/admin/users") && "is-active",
                 collapsed && "justify-center px-2",
               )}
             >
@@ -127,7 +125,7 @@ export function AdminSidebar({ role, collapsed, onToggleCollapse }: AdminSidebar
           href="/"
           target="_blank"
           className={cn(
-            "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-white/55 transition-colors hover:bg-white/10 hover:text-white",
+            "admin-nav-link text-white/55 hover:text-white",
             collapsed && "justify-center",
           )}
         >
@@ -138,7 +136,7 @@ export function AdminSidebar({ role, collapsed, onToggleCollapse }: AdminSidebar
           type="button"
           onClick={onToggleCollapse}
           className={cn(
-            "hidden w-full items-center gap-3 rounded-lg px-3 py-2 text-xs text-white/45 transition-colors hover:bg-white/10 hover:text-white lg:flex",
+            "admin-nav-link hidden w-full text-xs text-white/45 lg:flex",
             collapsed && "justify-center",
           )}
           aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}

@@ -1,15 +1,17 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import type { CategoryInfo, Product } from "@/types/product";
 import { ProductsCatalog } from "@/components/products/products-catalog";
 
 type Props = {
-  /** When true, parent loaded catalog from Supabase-backed APIs. */
   dataFromSupabase?: boolean;
+  defaultCategory?: string;
+  title?: string;
+  description?: string;
 };
 
-export function ProductsCatalogFromApi({ dataFromSupabase = false }: Props) {
+function CatalogInner(props: Props) {
   const [products, setProducts] = useState<Product[] | null>(null);
   const [categories, setCategories] = useState<CategoryInfo[] | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -22,12 +24,8 @@ export function ProductsCatalogFromApi({ dataFromSupabase = false }: Props) {
           fetch("/api/products", { cache: "no-store" }),
           fetch("/api/categories", { cache: "no-store" }),
         ]);
-        if (!pres.ok) {
-          throw new Error(`Products HTTP ${pres.status}`);
-        }
-        if (!cres.ok) {
-          throw new Error(`Categories HTTP ${cres.status}`);
-        }
+        if (!pres.ok) throw new Error(`Products HTTP ${pres.status}`);
+        if (!cres.ok) throw new Error(`Categories HTTP ${cres.status}`);
         const pdata: unknown = await pres.json();
         const cdata: unknown = await cres.json();
         if (
@@ -61,7 +59,7 @@ export function ProductsCatalogFromApi({ dataFromSupabase = false }: Props) {
 
   if (error) {
     return (
-      <div className="rounded-2xl border border-destructive/40 bg-destructive/10 p-8 text-center text-sm text-destructive">
+      <div className="border border-destructive/40 bg-destructive/10 p-8 text-center text-sm text-destructive">
         Could not load products ({error}). Check API configuration or try again.
       </div>
     );
@@ -69,17 +67,38 @@ export function ProductsCatalogFromApi({ dataFromSupabase = false }: Props) {
 
   if (!products || !categories) {
     return (
-      <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
-        {Array.from({ length: 6 }).map((_, i) => (
-          <div
-            key={i}
-            className="h-[420px] animate-pulse rounded-2xl border border-border/50 bg-muted/30"
-            aria-hidden
-          />
+      <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+        {Array.from({ length: 8 }).map((_, i) => (
+          <div key={i} className="aspect-square animate-pulse bg-muted" aria-hidden />
         ))}
       </div>
     );
   }
 
-  return <ProductsCatalog products={products} categories={categories} dataFromSupabase={dataFromSupabase} />;
+  return (
+    <ProductsCatalog
+      products={products}
+      categories={categories}
+      dataFromSupabase={props.dataFromSupabase}
+      defaultCategory={props.defaultCategory}
+      title={props.title}
+      description={props.description}
+    />
+  );
+}
+
+export function ProductsCatalogFromApi(props: Props) {
+  return (
+    <Suspense
+      fallback={
+        <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+          {Array.from({ length: 8 }).map((_, i) => (
+            <div key={i} className="aspect-square animate-pulse bg-muted" aria-hidden />
+          ))}
+        </div>
+      }
+    >
+      <CatalogInner {...props} />
+    </Suspense>
+  );
 }

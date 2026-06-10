@@ -11,7 +11,7 @@ export default async function AdminDashboardLayout({
   if (!isSupabaseConfigured()) {
     return (
       <div className="mx-auto flex min-h-screen max-w-lg flex-col justify-center px-6">
-        <div className="rounded-xl border border-primary/30 bg-card p-6 text-sm shadow-sm">
+        <div className="admin-panel border-primary/30 p-6 text-sm">
           <p className="font-semibold text-foreground">Supabase not configured</p>
           <p className="mt-2 text-muted-foreground">
             Add URL and anon key to <code className="rounded bg-muted px-1">.env</code> — see{" "}

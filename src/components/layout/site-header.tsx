@@ -1,53 +1,65 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import {
-  ArrowRight,
-  ChevronDown,
-  Menu,
-  MessageCircle,
-  X,
-} from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { ChevronDown, Search, User } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import { categories } from "@/data/categories";
 import { Container } from "@/components/ui/container";
-import { BrandLogo } from "@/components/ui/brand-logo";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { whatsappHref } from "@/lib/whatsapp";
 
-const mainNav = [
+type NavItem = { href: string; label: string; hasMenu?: boolean };
+
+const leftNav: NavItem[] = [
+  { href: "/", label: "Home" },
   { href: "/about", label: "About" },
+  { href: "/products", label: "Shop Now", hasMenu: true },
   { href: "/contact", label: "Contact" },
-] as const;
+];
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
 function isActive(pathname: string, href: string) {
+  if (href === "/") return pathname === "/";
   return pathname === href || pathname.startsWith(`${href}/`);
+}
+
+function MenuIcon({ open }: { open: boolean }) {
+  return (
+    <span className="relative flex h-5 w-6 flex-col justify-center gap-1.5" aria-hidden>
+      <span
+        className={cn(
+          "block h-px w-full bg-foreground transition-all duration-500 ease-in-out",
+          open && "translate-y-[3.5px] rotate-45",
+        )}
+      />
+      <span
+        className={cn(
+          "block h-px w-full bg-foreground transition-all duration-500 ease-in-out",
+          open && "-translate-y-[3.5px] -rotate-45",
+        )}
+      />
+    </span>
+  );
 }
 
 export function SiteHeader() {
   const pathname = usePathname();
+  const router = useRouter();
   const reduce = useReducedMotion();
-  const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [productsOpen, setProductsOpen] = useState(false);
-  const productsActive = pathname.startsWith("/products");
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 16);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [shopOpen, setShopOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     setMobileOpen(false);
-    setProductsOpen(false);
+    setSearchOpen(false);
+    setShopOpen(false);
   }, [pathname]);
 
   useEffect(() => {
@@ -57,247 +69,230 @@ export function SiteHeader() {
     };
   }, [mobileOpen]);
 
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    const q = searchQuery.trim();
+    router.push(q ? `/products?q=${encodeURIComponent(q)}` : "/products");
+    setSearchOpen(false);
+    setSearchQuery("");
+  };
+
   return (
     <>
-      <header
-        className={cn(
-          "fixed inset-x-0 top-0 z-50 transition-all duration-500",
-          scrolled ? "px-3 pt-3 sm:px-4 sm:pt-4" : "px-0 pt-0",
-        )}
-      >
-        <div
-          className={cn(
-            "mx-auto flex h-[3.75rem] items-center transition-all duration-500 sm:h-16",
-            scrolled
-              ? "max-w-6xl rounded-2xl border border-border/60 bg-background/85 px-3 shadow-2xl shadow-black/25 backdrop-blur-xl sm:px-4"
-              : "max-w-none border-b border-border/30 bg-background/40 backdrop-blur-md",
-          )}
-        >
-          <Container
-            className={cn(
-              "flex h-full w-full items-center justify-between gap-3",
-              scrolled && "!max-w-none !px-0",
-            )}
-          >
-            {/* Brand */}
-            <Link href="/" className="group flex min-w-0 items-center gap-2.5 sm:gap-3">
-              <BrandLogo
-                framed
-                priority
-                className="h-10 w-10 sm:h-11 sm:w-11"
-              />
-              <div className="min-w-0">
-                <span className="block truncate text-sm font-bold tracking-tight text-foreground transition-colors group-hover:text-primary">
-                  {siteConfig.name}
-                </span>
-                <span className="block truncate text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
-                  {siteConfig.tagline}
-                </span>
-              </div>
-            </Link>
-
-            {/* Desktop nav */}
-            <nav className="hidden items-center gap-1 rounded-full border border-border/50 bg-muted/30 p-1 lg:flex">
-              {mainNav.map((item) => {
-                const active = isActive(pathname, item.href);
-                return (
+      <header className="bg-background pt-5 lg:pt-8">
+        <Container>
+          {/* Desktop */}
+          <div className="hidden items-center lg:grid lg:grid-cols-[1fr_auto_1fr] lg:gap-8">
+            <nav className="flex items-center gap-7 xl:gap-8">
+              {leftNav.map((item) =>
+                item.hasMenu ? (
+                  <div
+                    key={item.href}
+                    className="relative"
+                    onMouseEnter={() => setShopOpen(true)}
+                    onMouseLeave={() => setShopOpen(false)}
+                  >
+                    <Link
+                      href={item.href}
+                      data-active={isActive(pathname, item.href)}
+                      className="drinkify-nav-link inline-flex items-center gap-1"
+                    >
+                      {item.label}
+                      <ChevronDown
+                        className={cn(
+                          "size-3.5 transition-transform duration-500 ease-in-out",
+                          shopOpen && "rotate-180",
+                        )}
+                      />
+                    </Link>
+                    <AnimatePresence>
+                      {shopOpen ? (
+                        <motion.div
+                          initial={reduce ? false : { opacity: 0, y: 8 }}
+                          animate={reduce ? undefined : { opacity: 1, y: 0 }}
+                          exit={reduce ? undefined : { opacity: 0, y: 8 }}
+                          transition={{ duration: 0.35, ease }}
+                          className="absolute left-0 top-full z-50 mt-3 min-w-[220px] border border-border bg-card py-2 shadow-lg"
+                        >
+                          <Link
+                            href="/products"
+                            className="block px-4 py-2.5 text-base text-foreground transition-colors duration-500 hover:bg-secondary hover:text-[var(--drinkify-orange)]"
+                          >
+                            All products
+                          </Link>
+                          {categories.map((cat) => (
+                            <Link
+                              key={cat.slug}
+                              href={`/products/${cat.slug}`}
+                              className="block px-4 py-2.5 text-base text-muted-foreground transition-colors duration-500 hover:bg-secondary hover:text-[var(--drinkify-orange)]"
+                            >
+                              {cat.title}
+                            </Link>
+                          ))}
+                        </motion.div>
+                      ) : null}
+                    </AnimatePresence>
+                  </div>
+                ) : (
                   <Link
                     key={item.href}
                     href={item.href}
-                    className={cn(
-                      "relative rounded-full px-4 py-2 text-sm font-medium transition-colors",
-                      active
-                        ? "text-foreground"
-                        : "text-muted-foreground hover:text-foreground",
-                    )}
+                    data-active={isActive(pathname, item.href)}
+                    className="drinkify-nav-link"
                   >
-                    {active ? (
-                      <motion.span
-                        layoutId="store-nav-pill"
-                        className="absolute inset-0 -z-10 rounded-full bg-background shadow-sm ring-1 ring-border/50"
-                        transition={{ type: "spring", stiffness: 420, damping: 32 }}
-                      />
-                    ) : null}
                     {item.label}
                   </Link>
-                );
-              })}
-
-              <div
-                className="relative"
-                onMouseEnter={() => setProductsOpen(true)}
-                onMouseLeave={() => setProductsOpen(false)}
-              >
-                <button
-                  type="button"
-                  className={cn(
-                    "relative flex items-center gap-1 rounded-full px-4 py-2 text-sm font-medium transition-colors",
-                    productsActive
-                      ? "text-foreground"
-                      : "text-muted-foreground hover:text-foreground",
-                  )}
-                  onClick={() => setProductsOpen((v) => !v)}
-                  aria-expanded={productsOpen}
-                >
-                  {productsActive ? (
-                    <motion.span
-                      layoutId="store-nav-pill"
-                      className="absolute inset-0 -z-10 rounded-full bg-background shadow-sm ring-1 ring-border/50"
-                      transition={{ type: "spring", stiffness: 420, damping: 32 }}
-                    />
-                  ) : null}
-                  Products
-                  <ChevronDown
-                    className={cn(
-                      "size-3.5 transition-transform",
-                      productsOpen && "rotate-180",
-                    )}
-                  />
-                </button>
-
-                <AnimatePresence>
-                  {productsOpen ? (
-                    <motion.div
-                      initial={reduce ? false : { opacity: 0, y: 8, scale: 0.98 }}
-                      animate={reduce ? undefined : { opacity: 1, y: 0, scale: 1 }}
-                      exit={reduce ? undefined : { opacity: 0, y: 8, scale: 0.98 }}
-                      transition={{ duration: 0.2, ease }}
-                      className="absolute left-1/2 top-full z-50 mt-3 w-[min(92vw,20rem)] -translate-x-1/2 overflow-hidden rounded-2xl border border-border/60 bg-popover/95 p-2 shadow-2xl backdrop-blur-xl"
-                    >
-                      <Link
-                        href="/products"
-                        className="flex items-center justify-between rounded-xl px-4 py-3 text-sm font-medium hover:bg-muted/60"
-                      >
-                        All products
-                        <ArrowRight className="size-3.5" />
-                      </Link>
-                      <div className="my-1 h-px bg-border/60" />
-                      {categories.map((cat) => (
-                        <Link
-                          key={cat.slug}
-                          href={`/products/${cat.slug}`}
-                          className="block rounded-xl px-4 py-2.5 text-sm hover:bg-muted/60"
-                        >
-                          <span className="font-medium">{cat.title}</span>
-                        </Link>
-                      ))}
-                    </motion.div>
-                  ) : null}
-                </AnimatePresence>
-              </div>
+                ),
+              )}
             </nav>
 
-            {/* Desktop CTAs */}
-            <div className="hidden items-center gap-2 lg:flex">
-              <Button asChild size="sm" variant="ghost" className="rounded-full">
-                <a href={whatsappHref()} target="_blank" rel="noreferrer">
-                  <MessageCircle className="size-4" />
-                  WhatsApp
-                </a>
-              </Button>
-              <Button asChild size="sm" className="rounded-full px-5 shadow-lg shadow-primary/15">
-                <Link href="/contact#quote">
-                  Get quote
-                  <ArrowRight className="size-3.5" />
-                </Link>
-              </Button>
-            </div>
+            <Link href="/" className="text-center transition-opacity duration-500 hover:opacity-80">
+              <span className="font-heading text-[28px] font-bold leading-tight text-foreground">
+                {siteConfig.name}
+              </span>
+              <span className="mt-0.5 block text-[13px] text-[#333333]">
+                Handcrafted Brass Hookahs
+              </span>
+            </Link>
 
-            {/* Mobile toggle */}
+            <div className="flex items-center justify-end gap-5">
+              <button
+                type="button"
+                onClick={() => setSearchOpen((v) => !v)}
+                className="drinkify-icon-btn"
+                aria-label="Search"
+              >
+                <Search className="size-5 stroke-[1.5]" />
+              </button>
+              <Link href="/contact" className="drinkify-icon-btn" aria-label="Contact">
+                <User className="size-5 stroke-[1.5]" />
+              </Link>
+            </div>
+          </div>
+
+          {/* Mobile — Drinkify: menu | logo | icons */}
+          <div className="grid grid-cols-[auto_1fr_auto] items-center gap-3 lg:hidden">
             <button
               type="button"
-              className={cn(
-                buttonVariants({ variant: "outline", size: "icon" }),
-                "rounded-xl lg:hidden",
-              )}
+              className="p-2"
               onClick={() => setMobileOpen((v) => !v)}
               aria-expanded={mobileOpen}
               aria-label={mobileOpen ? "Close menu" : "Open menu"}
             >
-              {mobileOpen ? <X className="size-4" /> : <Menu className="size-4" />}
+              <MenuIcon open={mobileOpen} />
             </button>
-          </Container>
-        </div>
+
+            <Link href="/" className="text-center">
+              <span className="font-heading text-xl font-bold leading-tight sm:text-2xl">
+                {siteConfig.name}
+              </span>
+              <span className="mt-0.5 block text-[11px] text-[#333333] sm:text-[13px]">
+                Handcrafted Brass Hookahs
+              </span>
+            </Link>
+
+            <div className="flex items-center gap-3">
+              <button
+                type="button"
+                onClick={() => setSearchOpen((v) => !v)}
+                className="drinkify-icon-btn"
+                aria-label="Search"
+              >
+                <Search className="size-5 stroke-[1.5]" />
+              </button>
+              <Link href="/contact" className="drinkify-icon-btn" aria-label="Contact">
+                <User className="size-5 stroke-[1.5]" />
+              </Link>
+            </div>
+          </div>
+        </Container>
+
+        <AnimatePresence>
+          {searchOpen ? (
+            <motion.div
+              initial={reduce ? false : { opacity: 0, height: 0 }}
+              animate={reduce ? undefined : { opacity: 1, height: "auto" }}
+              exit={reduce ? undefined : { opacity: 0, height: 0 }}
+              transition={{ duration: 0.35, ease }}
+              className="overflow-hidden border-t border-border"
+            >
+              <Container className="py-4">
+                <form onSubmit={handleSearch} className="flex gap-2">
+                  <Input
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="Search products…"
+                    className="h-11 flex-1 border-border bg-card"
+                    autoFocus
+                  />
+                  <Button type="submit" className="h-11 px-6">
+                    Search
+                  </Button>
+                </form>
+              </Container>
+            </motion.div>
+          ) : null}
+        </AnimatePresence>
       </header>
 
-      {/* Mobile menu */}
+      {/* Mobile overlay menu */}
       <AnimatePresence>
         {mobileOpen ? (
           <motion.div
-            className="fixed inset-0 z-40 lg:hidden"
+            className="fixed inset-0 z-50 lg:hidden"
             initial={reduce ? false : { opacity: 0 }}
             animate={reduce ? undefined : { opacity: 1 }}
             exit={reduce ? undefined : { opacity: 0 }}
+            transition={{ duration: 0.35, ease }}
           >
             <button
               type="button"
-              className="absolute inset-0 bg-background/80 backdrop-blur-md"
+              className="absolute inset-0 bg-black/20"
               aria-label="Close menu"
               onClick={() => setMobileOpen(false)}
             />
             <motion.nav
-              className="absolute inset-x-3 top-[4.25rem] max-h-[calc(100vh-5rem)] overflow-y-auto rounded-2xl border border-border/60 bg-card/95 p-5 shadow-2xl backdrop-blur-xl"
-              initial={reduce ? false : { opacity: 0, y: -12 }}
-              animate={reduce ? undefined : { opacity: 1, y: 0 }}
-              exit={reduce ? undefined : { opacity: 0, y: -12 }}
-              transition={{ duration: 0.28, ease }}
+              className="absolute left-0 top-0 h-full w-[min(88vw,320px)] overflow-y-auto bg-background p-6 shadow-xl"
+              initial={reduce ? false : { x: "-100%" }}
+              animate={reduce ? undefined : { x: 0 }}
+              exit={reduce ? undefined : { x: "-100%" }}
+              transition={{ duration: 0.45, ease }}
             >
-              <div className="mb-5 flex items-center gap-3 border-b border-border/50 pb-5">
-                <BrandLogo framed className="h-10 w-10" />
-                <div>
-                  <p className="text-sm font-bold">{siteConfig.name}</p>
-                  <p className="text-[10px] text-muted-foreground">{siteConfig.tagline}</p>
-                </div>
-              </div>
-
-              <Link
-                href="/"
-                className={cn(
-                  "block rounded-xl px-4 py-3 text-base font-medium",
-                  pathname === "/" ? "bg-primary/10" : "hover:bg-muted/50",
-                )}
-              >
-                Home
-              </Link>
-              {mainNav.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={cn(
-                    "mt-1 block rounded-xl px-4 py-3 text-base font-medium",
-                    isActive(pathname, item.href) ? "bg-primary/10" : "hover:bg-muted/50",
-                  )}
-                >
-                  {item.label}
-                </Link>
-              ))}
-
-              <p className="mb-2 mt-4 px-4 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
-                Products
-              </p>
-              <Link href="/products" className="block rounded-xl px-4 py-2.5 text-sm font-medium hover:bg-muted/50">
-                All products
-              </Link>
-              {categories.slice(0, 5).map((cat) => (
-                <Link
-                  key={cat.slug}
-                  href={`/products/${cat.slug}`}
-                  className="block rounded-xl px-4 py-2 text-sm text-muted-foreground hover:bg-muted/50 hover:text-foreground"
-                >
-                  {cat.title}
-                </Link>
-              ))}
-
-              <div className="mt-5 grid gap-2 border-t border-border/50 pt-5">
-                <Button asChild className="h-11 w-full rounded-xl">
-                  <Link href="/contact#quote">Get quote</Link>
-                </Button>
-                <Button asChild variant="outline" className="h-11 w-full rounded-xl">
-                  <a href={whatsappHref()} target="_blank" rel="noreferrer">
-                    <MessageCircle className="size-4" />
-                    WhatsApp
-                  </a>
-                </Button>
+              <p className="font-heading text-2xl font-bold">{siteConfig.name}</p>
+              <p className="mt-1 text-sm text-muted-foreground">Handcrafted Brass Hookahs</p>
+              <ul className="mt-8 space-y-1">
+                {leftNav.map((item) => (
+                  <li key={item.href}>
+                    <Link
+                      href={item.href}
+                      className={cn(
+                        "drinkify-mobile-nav-link block py-3 text-lg",
+                        isActive(pathname, item.href) && "is-active",
+                      )}
+                      onClick={() => setMobileOpen(false)}
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-6 border-t border-border pt-6">
+                <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                  Categories
+                </p>
+                <ul className="mt-3 space-y-1">
+                  {categories.slice(0, 5).map((cat) => (
+                    <li key={cat.slug}>
+                      <Link
+                        href={`/products/${cat.slug}`}
+                        className="block py-2 text-base text-muted-foreground transition-colors duration-500 hover:text-[var(--drinkify-orange)]"
+                        onClick={() => setMobileOpen(false)}
+                      >
+                        {cat.title}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </motion.nav>
           </motion.div>

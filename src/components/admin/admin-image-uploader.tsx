@@ -47,7 +47,7 @@ export function AdminImageUploader({ onUploaded }: Props) {
           accept="image/jpeg,image/png,image/webp,image/gif"
           disabled={busy}
           onChange={(ev) => void handleChange(ev)}
-          className="text-sm text-foreground file:mr-3 file:rounded-lg file:border-0 file:bg-secondary file:px-3 file:py-1.5 file:text-xs file:font-medium file:text-secondary-foreground hover:file:bg-secondary/80"
+          className="text-sm text-foreground file:mr-3 file:border-0 file:bg-secondary file:px-3 file:py-1.5 file:text-xs file:font-medium file:text-secondary-foreground hover:file:bg-secondary/80"
         />
       </div>
       {msg ? <p className="text-xs text-destructive">{msg}</p> : null}

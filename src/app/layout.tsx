@@ -1,4 +1,4 @@
-import { Inter, Syne, Geist_Mono } from "next/font/google";
+import { Lato, Playfair_Display, Geist_Mono } from "next/font/google";
 import type { Metadata } from "next";
 import "./globals.css";
 import { siteConfig } from "@/config/site";
@@ -7,15 +7,16 @@ import { SITE_LOGO_IMAGE, LINEUP_IMAGE_PRIMARY } from "@/config/visual";
 import { SupabaseHashSessionHandler } from "@/components/auth/supabase-hash-session-handler";
 import { Toaster } from "@/components/ui/sonner";
 
-const inter = Inter({
+const lato = Lato({
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  weight: ["400", "700"],
   variable: "--font-sans-var",
 });
 
-const syne = Syne({
+const playfair = Playfair_Display({
   subsets: ["latin"],
-  weight: ["600", "700", "800"],
+  weight: ["400", "500", "600", "700"],
+  style: ["normal", "italic"],
   variable: "--font-display-var",
 });
 
@@ -106,7 +107,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`dark ${inter.variable} ${syne.variable} ${geistMono.variable} h-full`}>
+    <html lang="en" className={`${lato.variable} ${playfair.variable} ${geistMono.variable} h-full`}>
       <body className="flex min-h-full flex-col font-sans">
         <script
           type="application/ld+json"

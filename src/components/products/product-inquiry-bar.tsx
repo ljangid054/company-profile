@@ -3,20 +3,29 @@ import { MessageCircle } from "lucide-react";
 import type { Product } from "@/types/product";
 import { Button } from "@/components/ui/button";
 import { whatsappHref, productInquiryMessage } from "@/lib/whatsapp";
+import { cn } from "@/lib/utils";
 
-export function ProductInquiryBar({ product }: { product: Product }) {
+export function ProductInquiryBar({
+  product,
+  className,
+}: {
+  product: Product;
+  className?: string;
+}) {
   const msg = productInquiryMessage(product.name);
   return (
-    <div className="flex flex-col gap-3 rounded-2xl border border-border/70 bg-card/50 p-6 sm:flex-row sm:items-center sm:justify-between">
-      <div>
-        <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary">
-          Inquiry
-        </p>
-        <p className="mt-2 font-heading text-xl text-foreground">
-          Request pricing for this SKU
-        </p>
-        <p className="mt-2 max-w-xl text-sm text-muted-foreground">
-          Share destination country and approximate volumes—we respond with MOQ options, finishes, and packing notes.
+    <div
+      className={cn(
+        "flex flex-col gap-4 border border-border bg-secondary/30 p-6 sm:flex-row sm:items-center",
+        className,
+      )}
+    >
+      <div className="flex-1">
+        <p className="text-xs font-semibold uppercase tracking-wider text-primary">Inquiry</p>
+        <p className="mt-2 font-heading text-lg font-semibold">Request pricing for this SKU</p>
+        <p className="mt-2 text-sm text-muted-foreground">
+          Share destination country and approximate volumes—we respond with MOQ options, finishes,
+          and packing notes.
         </p>
       </div>
       <div className="flex flex-col gap-2 sm:flex-row">

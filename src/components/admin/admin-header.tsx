@@ -28,13 +28,13 @@ export function AdminHeader({ title, email, role }: AdminHeaderProps) {
   const crumbs = breadcrumbs(pathname);
 
   return (
-    <header className="sticky top-0 z-30 border-b border-border bg-card/90 backdrop-blur-md">
+    <header className="sticky top-0 z-30 border-b border-border bg-card/95 backdrop-blur-sm">
       <div className="flex h-16 items-center justify-between gap-4 px-4 sm:px-6">
         <div className="min-w-0">
-          <p className="truncate text-[10px] font-medium uppercase tracking-widest text-muted-foreground">
+          <p className="truncate text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
             {crumbs.join(" / ")}
           </p>
-          <h1 className="truncate text-lg font-semibold text-foreground">{title}</h1>
+          <h1 className="admin-heading truncate text-xl font-semibold text-foreground">{title}</h1>
         </div>
 
         <div className="flex items-center gap-2 sm:gap-3">
@@ -50,14 +50,14 @@ export function AdminHeader({ title, email, role }: AdminHeaderProps) {
           <Button
             variant="ghost"
             size="icon"
-            className="size-9 text-muted-foreground"
+            className="size-9 text-muted-foreground transition-colors duration-500 hover:text-[var(--drinkify-orange)]"
             aria-label="Notifications"
           >
             <Bell className="size-4" />
           </Button>
 
           <div className="hidden items-center gap-2 sm:flex">
-            <div className="flex size-9 items-center justify-center rounded-full bg-primary text-xs font-bold text-primary-foreground">
+            <div className="flex size-9 items-center justify-center bg-primary text-xs font-bold text-primary-foreground">
               {initials(email)}
             </div>
             <div className="hidden text-right xl:block">

@@ -3,6 +3,7 @@
 export const siteConfig = {
   name: "Somada Hookah",
   tagline: "Desi premium handcrafted brass hookahs",
+  brandSubtitle: "Handcrafted Brass",
   description:
     "Somada Hookah crafts premium desi brass hookahs in Somda, Rajasthan—heritage silhouettes, bespoke weddings, and lounge-grade hospitality lines for collectors and partners across India and abroad.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://somadahookah.com",

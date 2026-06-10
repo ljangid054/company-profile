@@ -4,64 +4,124 @@ import Link from "next/link";
 import { siteConfig } from "@/config/site";
 import { Container } from "@/components/ui/container";
 import { BrandLogo } from "@/components/ui/brand-logo";
-import { TextReveal } from "@/components/motion/text-reveal";
+import { whatsappHref } from "@/lib/whatsapp";
 
-const links = [
-  { href: "/products", label: "Products" },
-  { href: "/about", label: "About" },
+const quickLinks = [
+  { href: "/products", label: "Our Products" },
+  { href: "/about", label: "Our Company" },
   { href: "/contact", label: "Contact" },
-  { href: "/contact#quote", label: "Quote" },
+  { href: "/contact#quote", label: "Request Quote" },
 ] as const;
+
+const supportLinks: { href: string; label: string; external?: boolean }[] = [
+  { href: whatsappHref(), label: "WhatsApp Support", external: true },
+  { href: "/contact", label: "FAQs & Inquiries" },
+  { href: "/contact", label: "Terms & Conditions" },
+];
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-border/40 py-16 lg:py-20">
+    <footer className="border-t border-border bg-background pb-16 pt-16">
       <Container>
-        <div className="grid gap-12 lg:grid-cols-[1.2fr_1fr]">
-          <TextReveal>
-            <div className="flex items-start gap-4">
-              <BrandLogo framed className="h-12 w-12" />
-              <div>
-                <p className="text-lg font-bold tracking-tight">{siteConfig.name}</p>
-                <p className="mt-1 text-sm text-muted-foreground">{siteConfig.tagline}</p>
-              </div>
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+          <div>
+            <div className="flex items-center gap-3">
+              <BrandLogo framed className="h-11 w-11" />
+              <p className="font-heading text-lg font-semibold">{siteConfig.name}</p>
             </div>
-            <p className="mega-headline mt-8 text-2xl sm:text-3xl">Get in touch</p>
-            <p className="mt-4 text-sm text-muted-foreground">
-              <a href={`tel:${siteConfig.contact.phoneTel}`} className="hover:underline">
-                {siteConfig.contact.phoneDisplay}
-              </a>
-              <br />
-              <a href={`mailto:${siteConfig.contact.email}`} className="hover:underline">
-                {siteConfig.contact.email}
-              </a>
+            <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+              {siteConfig.description}
             </p>
-          </TextReveal>
+          </div>
 
-          <TextReveal delay={0.08}>
-            <nav className="flex flex-wrap gap-x-8 gap-y-3">
-              {links.map((l) => (
-                <Link
-                  key={l.href}
-                  href={l.href}
-                  className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-                >
-                  {l.label}
-                </Link>
+          <div>
+            <h3 className="font-heading text-base font-semibold">Quick Links</h3>
+            <ul className="mt-4 space-y-2">
+              {quickLinks.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="text-sm text-muted-foreground transition-colors hover:text-primary"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
               ))}
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="font-heading text-base font-semibold">Support</h3>
+            <ul className="mt-4 space-y-2">
+              {supportLinks.map((link) => (
+                <li key={link.label}>
+                  {link.external ? (
+                    <a
+                      href={link.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-sm text-muted-foreground transition-colors hover:text-primary"
+                    >
+                      {link.label}
+                    </a>
+                  ) : (
+                    <Link
+                      href={link.href}
+                      className="text-sm text-muted-foreground transition-colors hover:text-primary"
+                    >
+                      {link.label}
+                    </Link>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="font-heading text-base font-semibold">Contact Us</h3>
+            <div className="mt-4 space-y-2 text-sm text-muted-foreground">
+              <p>
+                <a href={`tel:${siteConfig.contact.phoneTel}`} className="hover:text-primary">
+                  {siteConfig.contact.phoneDisplay}
+                </a>
+              </p>
+              <p>
+                <a href={`mailto:${siteConfig.contact.email}`} className="hover:text-primary">
+                  {siteConfig.contact.email}
+                </a>
+              </p>
+              <p className="leading-relaxed">
+                {siteConfig.contact.addressLine1},
+                <br />
+                {siteConfig.contact.addressLine2},
+                <br />
+                {siteConfig.contact.city}, {siteConfig.contact.region}{" "}
+                {siteConfig.contact.postalCode}
+              </p>
               <a
                 href={siteConfig.social.instagram}
                 target="_blank"
                 rel="noreferrer"
-                className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                className="inline-block pt-2 text-primary hover:underline"
               >
                 Instagram
               </a>
-            </nav>
-            <p className="mt-10 text-xs text-muted-foreground">
-              © {new Date().getFullYear()} {siteConfig.name}. Handmade in Somda, Rajasthan.
-            </p>
-          </TextReveal>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-border pt-8 text-xs text-muted-foreground sm:flex-row">
+          <p>
+            © {new Date().getFullYear()} {siteConfig.name}. Handmade in Somda, Rajasthan.
+          </p>
+          <div className="flex gap-6">
+            <Link href="/contact" className="hover:text-primary">
+              Terms &amp; Conditions
+            </Link>
+            <Link href="/contact" className="hover:text-primary">
+              Privacy policy
+            </Link>
+          </div>
         </div>
       </Container>
     </footer>

@@ -23,10 +23,10 @@ export default async function AdminLoginPage({ searchParams }: Props) {
   if (!isSupabaseConfigured()) {
     return (
       <div className="admin-theme flex min-h-screen items-center justify-center px-6">
-        <div className="max-w-md rounded-2xl border border-border bg-card p-8 text-center shadow-sm">
-          <p className="text-lg font-semibold">Supabase is not configured</p>
+        <div className="admin-panel max-w-md p-8 text-center">
+          <p className="admin-heading text-lg font-semibold">Supabase is not configured</p>
           <p className="mt-2 text-sm text-muted-foreground">
-            Add keys to <code className="rounded bg-muted px-1">.env</code>
+            Add keys to <code className="bg-muted px-1">.env</code>
           </p>
           <Link href="/" className="mt-6 inline-block text-sm text-primary hover:underline">
             Home
@@ -41,35 +41,37 @@ export default async function AdminLoginPage({ searchParams }: Props) {
 
   return (
     <div className="admin-theme flex min-h-screen">
-      <div className="hidden flex-1 flex-col justify-between bg-[var(--admin-sidebar)] p-12 text-white lg:flex">
+      <div className="admin-login-panel hidden flex-1 flex-col justify-between p-12 text-white lg:flex">
         <div>
-          <p className="text-sm font-bold uppercase tracking-widest text-white/60">Dataflow</p>
-          <h1 className="mt-8 text-4xl font-bold leading-tight">
-            {siteConfig.name}
-            <br />
+          <p className="text-[13px] text-white/60">Somada Hookah</p>
+          <h1 className="admin-heading mt-8 text-4xl font-semibold leading-tight">
             Admin Console
           </h1>
-          <p className="mt-4 max-w-sm text-white/60">
-            Manage products, categories, and export inquiries from one dashboard.
+          <p className="mt-4 max-w-sm text-base leading-relaxed text-white/70">
+            Manage products, categories, and export inquiries from one dashboard — aligned with
+            your storefront.
           </p>
         </div>
-        <p className="text-xs text-white/40">Staff access only · Somada workshop</p>
+        <p className="text-xs text-white/40">
+          Staff access only · {siteConfig.contact.city}, {siteConfig.contact.region}
+        </p>
       </div>
 
-      <div className="flex flex-1 flex-col justify-center px-6 py-16 sm:px-12">
+      <div className="flex flex-1 flex-col justify-center bg-background px-6 py-16 sm:px-12">
         <div className="mx-auto w-full max-w-sm">
-          <h2 className="text-2xl font-bold text-foreground">Sign in</h2>
+          <h2 className="admin-heading text-2xl font-semibold text-foreground">Sign in</h2>
           <p className="mt-2 text-sm text-muted-foreground">
-            Your account must exist in <code className="rounded bg-muted px-1 text-xs">admin_profiles</code>.
+            Your account must exist in{" "}
+            <code className="bg-muted px-1 text-xs">admin_profiles</code>.
           </p>
 
           {sp.error ? (
-            <p className="mt-4 rounded-lg border border-destructive/30 bg-destructive/10 px-3 py-2 text-sm text-destructive">
+            <p className="mt-4 border border-destructive/30 bg-destructive/10 px-3 py-2 text-sm text-destructive">
               {decodeURIComponent(sp.error)}
             </p>
           ) : null}
           {sp.notice && NOTICE_COPY[sp.notice] ? (
-            <p className="mt-4 rounded-lg border border-emerald-500/30 bg-emerald-500/10 px-3 py-2 text-sm text-emerald-700">
+            <p className="mt-4 border border-[var(--drinkify-gold)]/30 bg-[#f0ede0] px-3 py-2 text-sm text-[#5c5328]">
               {NOTICE_COPY[sp.notice]}
             </p>
           ) : null}
@@ -94,7 +96,10 @@ export default async function AdminLoginPage({ searchParams }: Props) {
             </Button>
           </form>
 
-          <Link href="/" className="mt-8 block text-center text-sm text-muted-foreground hover:text-foreground">
+          <Link
+            href="/"
+            className="mt-8 block text-center text-sm text-muted-foreground transition-colors duration-500 hover:text-[var(--drinkify-orange)]"
+          >
             ← Back to storefront
           </Link>
         </div>

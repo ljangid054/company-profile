@@ -51,79 +51,81 @@
 }
 
 /**
- * Theme: Thonik × Consensys hybrid — stark editorial (thonik) + B2B narrative structure.
+ * Theme: Drinkify (Catch Themes) — white bg, olive #847630, orange nav #FF7C31, Playfair + Lato.
  */
 :root {
-  --background: oklch(0.05 0 0);
-  --foreground: oklch(0.98 0 0);
-  --section-light: oklch(0.98 0 0);
-  --section-light-foreground: oklch(0.08 0 0);
-  --card: oklch(0.09 0 0);
-  --card-foreground: oklch(0.98 0 0);
-  --popover: oklch(0.08 0 0);
-  --popover-foreground: oklch(0.98 0 0);
-  --primary: oklch(0.98 0 0);
-  --primary-foreground: oklch(0.06 0 0);
-  --secondary: oklch(0.14 0 0);
-  --secondary-foreground: oklch(0.92 0 0);
-  --muted: oklch(0.12 0 0);
-  --muted-foreground: oklch(0.62 0 0);
-  --accent: oklch(0.16 0 0);
-  --accent-foreground: oklch(0.98 0 0);
+  --drinkify-gold: #847630;
+  --drinkify-orange: #ff7c31;
+  --background: #ffffff;
+  --foreground: #111111;
+  --section-light: #ffffff;
+  --section-light-foreground: #1a1a1a;
+  --card: #ffffff;
+  --card-foreground: #1a1a1a;
+  --popover: #ffffff;
+  --popover-foreground: #1a1a1a;
+  --primary: #847630;
+  --primary-foreground: #ffffff;
+  --secondary: #f5f5f5;
+  --secondary-foreground: #333333;
+  --muted: #f5f5f5;
+  --muted-foreground: #666666;
+  --accent: #f0f0f0;
+  --accent-foreground: #1a1a1a;
   --destructive: oklch(0.58 0.19 22);
-  --border: oklch(0.45 0 0 / 0.28);
-  --input: oklch(0.2 0 0 / 0.6);
-  --ring: oklch(0.85 0 0);
-  --chart-1: oklch(0.98 0 0);
-  --chart-2: oklch(0.7 0.12 55);
+  --border: #e5e5e5;
+  --input: #ececec;
+  --ring: #84763066;
+  --chart-1: #847630;
+  --chart-2: #ff7c31;
   --chart-3: oklch(0.5 0.06 285);
   --chart-4: oklch(0.35 0.03 285);
   --chart-5: oklch(0.2 0.02 285);
-  --radius: 0.25rem;
-  --sidebar: oklch(0.07 0 0);
-  --sidebar-foreground: oklch(0.98 0 0);
-  --sidebar-primary: oklch(0.98 0 0);
-  --sidebar-primary-foreground: oklch(0.06 0 0);
-  --sidebar-accent: oklch(0.14 0 0);
-  --sidebar-accent-foreground: oklch(0.98 0 0);
-  --sidebar-border: oklch(0.4 0 0 / 0.3);
-  --sidebar-ring: oklch(0.85 0 0);
+  --radius: 0px;
+  --sidebar: #fafafa;
+  --sidebar-foreground: #1a1a1a;
+  --sidebar-primary: #847630;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f0f0f0;
+  --sidebar-accent-foreground: #1a1a1a;
+  --sidebar-border: #e5e5e5;
+  --sidebar-ring: #84763066;
 }
 
 .dark {
-  --background: oklch(0.05 0 0);
-  --foreground: oklch(0.98 0 0);
-  --section-light: oklch(0.98 0 0);
-  --section-light-foreground: oklch(0.08 0 0);
-  --card: oklch(0.085 0 0);
-  --card-foreground: oklch(0.98 0 0);
-  --popover: oklch(0.075 0 0);
-  --popover-foreground: oklch(0.98 0 0);
-  --primary: oklch(0.98 0 0);
-  --primary-foreground: oklch(0.06 0 0);
-  --secondary: oklch(0.13 0 0);
-  --secondary-foreground: oklch(0.98 0 0);
-  --muted: oklch(0.11 0 0);
-  --muted-foreground: oklch(0.62 0 0);
-  --accent: oklch(0.15 0 0);
-  --accent-foreground: oklch(0.98 0 0);
+  --background: #ffffff;
+  --foreground: #111111;
+  --section-light: #ffffff;
+  --section-light-foreground: #1a1a1a;
+  --card: #ffffff;
+  --card-foreground: #1a1a1a;
+  --popover: #ffffff;
+  --popover-foreground: #1a1a1a;
+  --primary: #847630;
+  --primary-foreground: #ffffff;
+  --secondary: #f5f5f5;
+  --secondary-foreground: #333333;
+  --muted: #f5f5f5;
+  --muted-foreground: #666666;
+  --accent: #f0f0f0;
+  --accent-foreground: #1a1a1a;
   --destructive: oklch(0.58 0.19 22);
-  --border: oklch(0.45 0 0 / 0.28);
-  --input: oklch(0.2 0 0 / 0.6);
-  --ring: oklch(0.85 0 0);
-  --chart-1: oklch(0.98 0 0);
-  --chart-2: oklch(0.7 0.12 55);
+  --border: #e5e5e5;
+  --input: #ececec;
+  --ring: #84763066;
+  --chart-1: #847630;
+  --chart-2: #ff7c31;
   --chart-3: oklch(0.5 0.06 285);
   --chart-4: oklch(0.35 0.03 285);
   --chart-5: oklch(0.2 0.02 285);
-  --sidebar: oklch(0.065 0 0);
-  --sidebar-foreground: oklch(0.98 0 0);
-  --sidebar-primary: oklch(0.98 0 0);
-  --sidebar-primary-foreground: oklch(0.06 0 0);
-  --sidebar-accent: oklch(0.12 0 0);
-  --sidebar-accent-foreground: oklch(0.98 0 0);
-  --sidebar-border: oklch(0.4 0 0 / 0.3);
-  --sidebar-ring: oklch(0.85 0 0);
+  --sidebar: #fafafa;
+  --sidebar-foreground: #1a1a1a;
+  --sidebar-primary: #847630;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f0f0f0;
+  --sidebar-accent-foreground: #1a1a1a;
+  --sidebar-border: #e5e5e5;
+  --sidebar-ring: #84763066;
 }
 
 @keyframes marquee-scroll {
@@ -176,7 +178,93 @@
   }
   .mega-headline {
     font-family: var(--font-heading);
-    @apply text-balance font-extrabold leading-[0.95] tracking-[-0.04em];
+    @apply text-balance font-semibold leading-[1.05] tracking-[-0.02em];
+  }
+  .shop-card {
+    @apply bg-transparent text-center;
+  }
+  .shop-product-image-wrap {
+    @apply transition-transform duration-500 ease-in-out;
+  }
+  .shop-card:hover .shop-product-image-wrap {
+    transform: scale(1.05);
+  }
+  .shop-product-image {
+    @apply transition-transform duration-500 ease-in-out;
+  }
+  .shop-card:hover .shop-product-image {
+    transform: scale(1.08);
+  }
+  .shop-card:hover .shop-product-title {
+    color: var(--drinkify-gold);
+  }
+  .shop-product-title {
+    @apply transition-colors duration-500 ease-in-out;
+  }
+  .shop-product-btn {
+    @apply transition-all duration-500 ease-in-out;
+  }
+  .shop-card:hover .shop-product-btn {
+    background: #6d6328;
+  }
+  .shop-sidebar {
+    @apply border border-border bg-card p-6;
+  }
+  .wine-badge {
+    @apply absolute left-3 top-3 bg-[var(--drinkify-gold)] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-white;
+  }
+  .drinkify-nav-link {
+    @apply relative text-lg font-normal text-[#111111];
+    transition: color 0.5s ease-in-out;
+  }
+  .drinkify-nav-link::after {
+    content: "";
+    @apply absolute -bottom-1 left-0 h-px w-full origin-left bg-[var(--drinkify-orange)];
+    transform: scaleX(0);
+    transition: transform 0.5s ease-in-out;
+  }
+  .drinkify-nav-link:hover,
+  .drinkify-nav-link[data-active="true"] {
+    color: var(--drinkify-orange);
+  }
+  .drinkify-nav-link:hover::after,
+  .drinkify-nav-link[data-active="true"]::after {
+    transform: scaleX(1);
+  }
+  .drinkify-icon-btn {
+    @apply text-foreground transition-all duration-500 ease-in-out;
+  }
+  .drinkify-icon-btn:hover {
+    color: var(--drinkify-orange);
+    transform: scale(1.08);
+  }
+  .drinkify-mobile-nav-link {
+    @apply relative text-[#111111] transition-colors duration-500 ease-in-out;
+  }
+  .drinkify-mobile-nav-link.is-active,
+  .drinkify-mobile-nav-link:hover {
+    color: var(--drinkify-orange);
+  }
+  .drinkify-btn {
+    @apply inline-block bg-[var(--drinkify-gold)] px-7 py-3.5 text-lg text-white;
+    transition: background-color 0.5s ease-in-out, transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+  }
+  .drinkify-btn:hover {
+    background: #6d6328;
+    transform: translateY(-1px);
+  }
+  .drinkify-hero-gold {
+    color: var(--drinkify-gold);
+  }
+  .drinkify-meet-line {
+    @apply inline-flex items-center gap-3 text-lg text-[#111111];
+  }
+  .drinkify-meet-line::after {
+    content: "";
+    @apply h-px w-16 bg-foreground/30;
+  }
+  .drinkify-product-shadow {
+    filter: drop-shadow(0 20px 40px rgb(0 0 0 / 0.12));
   }
   .section-label {
     @apply font-sans text-[11px] font-medium uppercase tracking-[0.32em] text-muted-foreground;
